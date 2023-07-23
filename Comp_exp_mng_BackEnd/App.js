@@ -4,6 +4,8 @@ const cors = require("cors");
 const express = require("express");
 const path = require("path");
 
+const logger = require("morgan");
+
 const app = express();
 const PORT = process.env.PORT;
 
@@ -12,6 +14,13 @@ app.use(cors({
     credentials: true,
   }));
 
-  app.listen(PORT, () => {
-    console.log(`Server listening on : http://localhost:${PORT}`);
-  });
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
+app.use(express.json({ limit: "10mb" }));
+
+app.use(logger("dev"));
+
+require("./Routes/AuthRoutes.js")(app);
+
+app.listen(PORT, () => {
+  console.log(`Server listening on : http://localhost:${PORT}`);
+});
