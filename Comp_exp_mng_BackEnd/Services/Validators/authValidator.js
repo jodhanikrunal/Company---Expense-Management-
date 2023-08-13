@@ -2,7 +2,6 @@ const Joi = require("joi");
 
 
 exports.AuthSignupValidator = Joi.object({
-    cin: Joi.string().required(),
     company_name: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(8).max(16).required().label('Password'),
