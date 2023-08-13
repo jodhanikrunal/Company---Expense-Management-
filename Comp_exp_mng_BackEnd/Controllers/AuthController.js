@@ -76,37 +76,48 @@ exports.authSignUpVerify = async (req, res) => {
 };
 
 exports.authLogin = async (req, res) => {
-  try{
-    const {email, otp} = req.body;
+  const { email, password } = req.body;
 
-    const { error } = AuthLoginValidator.validate({ email });
-    if (error) {
-      return res
-        .status(400)
-        .json({ success: false, message: error.details[0].message });
+  try {
+    const user = await Register.findOne({ email });
+
+    if (!user) {
+      return res.status(401).send({
+        success: false,
+        message: "User with this email not exist.",
+      });
     }
 
-    const is_verified = verifyOTP(email, otp);
-
-    if (is_verified) {
-      const exist = await Register.findOne({
-        $or: [{ email: email }],
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).send({
+        success: false,
+        message: "Incorrect password.",
       });
+    }
 
-      if (!exist) {
-        return res.status(400).send({
-          success: false,
-          message: "Company with this Email does not exists.",
-        });
-      }
-      const token = genToken(exist._id);
-      res.status(200).send({ success: true, message: "Login successful", token: token });
-}
-  }catch(err){
-      console.warn(err);
-      res.status(400).send({
+    const payload = {
+      _id: user._id,
+      email: user.email,
+      password: user.password,
+      type: "user",
+    };
+
+    const authToken = genToken(payload);
+
+    res.status(200).send({
+      success: true,
+      result: authToken,
+      _id: user._id,
+      email: user.email,
+      password: user.password,
+      type: "user",
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({
       success: false,
-      message: "Error creating company.",
+      message: "An error occurred. Check server logs for details.",
     });
   }
 };
