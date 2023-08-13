@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const RegisterationSchema = mongoose.Schema({
-    cin: {
-        type: String,
-        required: true,
-        unique: true
-      },
       company_name: {
         type: String,
         required: true,

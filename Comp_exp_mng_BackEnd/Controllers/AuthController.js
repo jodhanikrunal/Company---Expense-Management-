@@ -6,6 +6,7 @@ const {
   AuthSignupValidator,
   AuthLoginValidator,
 } = require("../Services/Validators/authValidator");
+const bcrypt = require('bcrypt');
 
 
 exports.authSignUp = async (req, res) => {
@@ -39,31 +40,37 @@ exports.authSignUp = async (req, res) => {
 };
 
 exports.authSignUpVerify = async (req, res) => {
-  try{
-    const {company_name, email, password, otp} = req.body;
+  try {
+    const { company_name, email, password, otp } = req.body;
 
-    const is_verified = verifyOTP(email, otp);
+    const is_verified = await verifyOTP(email, otp);
 
     if (is_verified) {
-      const exist = await Register.findOne({
-        $or: [{ email: email }],
-      });
+      const existingCompany = await Register.findOne({ email: email });
 
-      if (exist) {
+      if (existingCompany) {
         return res.status(400).send({
           success: false,
-          message: "Company with Email already exists.",
+          message: "Company with this email already exists.",
         });
       }
-      const newRegister = await new Register({company_name, email, password});
+
+      const hashedPassword = await bcrypt.hash(password, 15);
+      const newRegister = new Register({ company_name, email, password: hashedPassword });
       await newRegister.save();
 
-  }else res.status(400).send({ success: false, message: "Wrong OTP" });
-  }catch(err){
-      console.warn(err);
-      res.status(400).send({
+      res.status(200).send({
+        success: true,
+        message: "Company registered successfully.",
+      });
+    } else {
+      res.status(400).send({ success: false, message: "Incorrect OTP" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({
       success: false,
-      message: "Error creating company.",
+      message: "An error occurred. Check server logs for details.",
     });
   }
 };
