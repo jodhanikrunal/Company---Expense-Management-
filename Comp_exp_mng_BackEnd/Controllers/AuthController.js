@@ -8,7 +8,6 @@ const {
 } = require("../Services/Validators/authValidator");
 const bcrypt = require('bcrypt');
 
-
 exports.authSignUp = async (req, res) => {
     try{
         const {company_name , email, password, confirm_password} = req.body;

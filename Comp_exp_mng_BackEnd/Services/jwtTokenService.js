@@ -8,7 +8,7 @@ const genToken = (payload) => {
     const token = jwt.sign(
         payload,
         JWT_SEC, {
-        expiresIn: '30d'
+        expiresIn: '7d'
     });
 
     return token;

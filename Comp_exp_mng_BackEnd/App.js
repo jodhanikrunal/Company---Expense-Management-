@@ -20,6 +20,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(logger("dev"));
 
 require("./Routes/AuthRoutes.js")(app);
+require("./Routes/addProjectRoutes.js")(app);
 
 app.listen(PORT, () => {
   console.log(`Server listening on : http://localhost:${PORT}`);

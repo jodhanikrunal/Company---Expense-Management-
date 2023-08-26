@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const ProjectSchme = mongoose.Schema({
-    companyEmail: {
+const ProjectSchma = mongoose.Schema({
+    company: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Register",
         required: true,
@@ -53,5 +53,5 @@ const ProjectSchme = mongoose.Schema({
     ], 
 });
 
-const Project = mongoose.model("Project", ProjectSchme);
+const Project = mongoose.model("Project", ProjectSchma);
 module.exports = Project;
