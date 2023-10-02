@@ -4,7 +4,7 @@ const{
 const authMiddleware = require('../Middlewares/AuthMiddleware');
 
 const addProjectRoutes = (app) => {
-    app.post("/addProject",authMiddleware,addProject);
+    app.post("/addProject",addProject);
 }
  
 module.exports = addProjectRoutes;

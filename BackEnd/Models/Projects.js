@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ProjectSchma = mongoose.Schema({
+const ProjectSchema = mongoose.Schema({
     company: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Register",
@@ -19,11 +19,11 @@ const ProjectSchma = mongoose.Schema({
         required: true,
     },
     startDate: {
-        type: String,
+        type: Date,
         required: true,
     },
     endDate: {
-        type: String,
+        type: Date,
         required: true,
     },
     projectManager: {
@@ -31,28 +31,27 @@ const ProjectSchma = mongoose.Schema({
         required: true,
     },
     progress: {
+        type: Number,
+        required: true,
+    },
+    status: {
         type: String,
         required: true,
     },
-    // status: {
-    //     type: String,
-    //     required: true,
-    // },
     projectMembers: [
         {
             employeeName: {
                 type: String,
-                // required:true,
             },
-            // employeeDepartment: {
-            //     type: String,
-            // },
-            // employeeDesignation: {
-            //     type: String,
-            // },
+            employeeDepartment: {
+                type: String,
+            },
+            employeeDesignation: {
+                type: String,
+            },
         }
     ], 
 });
 
-const Project = mongoose.model("Project", ProjectSchma);
+const Project = mongoose.model("Project", ProjectSchema);
 module.exports = Project;
