@@ -12,21 +12,12 @@ exports.authSignUp = async (req, res) => {
     try{
         const {company_name , email, password, confirm_password} = req.body;
         const {error} = AuthSignupValidator.validate(req.body);
-        const existingCompany = await Register.findOne({ email: email });
 
-        if (existingCompany) {
-          return res.status(400).send({
-            success: false,
-            message: "Company with this email already exists.",
-          });
-        }
-        
         if (error) {
             return res
-              .status(410)
+              .status(400)
               .json({ success: false, message: error.details[0].message });
           }
-
 
           try {
             await sendOTP(email);
@@ -50,13 +41,13 @@ exports.authSignUp = async (req, res) => {
 exports.authSignUpVerify = async (req, res) => {
   try {
     const { company_name, email, password, otp } = req.body;
-    // console.log(req.body);
+
     const is_verified = await verifyOTP(email, otp);
 
     if (is_verified) {
       const existingCompany = await Register.findOne({ email: email });
 
-    if (existingCompany) {
+      if (existingCompany) {
         return res.status(400).send({
           success: false,
           message: "Company with this email already exists.",

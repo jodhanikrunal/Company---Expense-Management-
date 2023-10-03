@@ -1,5 +1,5 @@
 require("./Database/Connection");
-require("dotenv").config({ path: ".env" });
+require("dotenv").config({ path: "../.env" });
 const cors = require("cors");
 const express = require("express");
 const path = require("path");
@@ -21,7 +21,7 @@ app.use(logger("dev"));
 
 require("./Routes/AuthRoutes.js")(app);
 require("./Routes/addProjectRoutes.js")(app);
-require("./Routes/getallprojects.js")(app);
+// require("./Routes/addExpenseRoute.js")(app);
 
 app.listen(PORT, () => {
   console.log(`Server listening on : http://localhost:${PORT}`);
