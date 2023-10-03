@@ -107,7 +107,6 @@ exports.authLogin = async (req, res) => {
     const payload = {
       _id: user._id,
       email: user.email,
-      password: user.password,
       type: "user",
     };
 
@@ -118,7 +117,7 @@ exports.authLogin = async (req, res) => {
       result: authToken,
       _id: user._id,
       email: user.email,
-      password: user.password,
+      // password: user.password,
       type: "user",
     });
   } catch (err) {

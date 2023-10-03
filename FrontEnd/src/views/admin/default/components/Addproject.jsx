@@ -49,11 +49,67 @@ export default function CreateNewProject() {
   };
 
 
-  const handleAddProject = (event) => {
+  // const handleAddProject = (event) => {
     
-   event.preventDefault();
+  //  event.preventDefault();
 
-    console.log("Successfully added project");
+  //   // console.log("Successfully added project");
+  //   const projectMembersArray = values.filter((value) => value.trim() !== '');
+  //   const projectData = {
+  //     projectTitle: projectTitle,
+  //     projectDescription: projectDescription,
+  //     maxBudget: budget,
+  //     startDate: startDate,
+  //     endDate: endDate,
+  //     projectManager: projectManager,
+  //     progress: status,
+  //     projectMembers: projectMembersArray.map((member) => ({
+  //       employeeName: member,
+  //     })),
+  //   };
+
+  //   // console.log('Project Data:', projectData);
+  //   const jwtToken = localStorage.getItem("jwtToken");
+  //   console.log("Jwt Token:",jwtToken);
+
+  //   const headers = {
+  //     'Authorization': `Bearer ${jwtToken}`, 
+  //     // 'Authorization': 'jwtToken', 
+  //     'Content-Type': 'application/json', 
+  //   };
+
+  //   axios
+  //   .post('http://localhost:4000/addProject', projectData,{ headers })
+  //   .then((response) => {
+  //     console.log('Response from the server:', response.data);  
+      
+
+  //     setProjectTitle('');
+  //     setProjectDescription('');
+  //     setBudget('');
+  //     setStartDate(null);
+  //     setEndDate(null);
+  //     setProjectManager('');
+  //     setStatus('In Progress');
+  //     setTeamMembers(['']);
+
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error:', error.response.data);
+  //   });
+  //     setProjectTitle('');
+  //     setProjectDescription('');
+  //     setBudget('');
+  //     setStartDate(null);
+  //     setEndDate(null);
+  //     setProjectManager('');
+  //     setStatus('In Progress');
+  //     setTeamMembers(['']);
+  // };
+
+  const handleAddProject = (event) => {
+    event.preventDefault();
+  
     const projectMembersArray = values.filter((value) => value.trim() !== '');
     const projectData = {
       projectTitle: projectTitle,
@@ -67,29 +123,38 @@ export default function CreateNewProject() {
         employeeName: member,
       })),
     };
-
-    console.log('Project Data:', projectData);
-
-    axios
-    .post('http://localhost:4000/addProject', projectData)
-    .then((response) => {
-      console.log('Response from the server:', response.data);
-      
-
-      setProjectTitle('');
-      setProjectDescription('');
-      setBudget('');
-      setStartDate(null);
-      setEndDate(null);
-      setProjectManager('');
-      setStatus('In Progress');
-      setTeamMembers(['']);
-
+  
+    const jwtToken = localStorage.getItem("jwtToken");
+    console.log("Token in Frontend : ",jwtToken);
+  
+    fetch('http://localhost:4000/addProject', {
+      method: 'POST',
+      headers: {
+        // 'Authorization': `Bearer ${jwtToken}`,
+        'Content-Type': 'application/json',
+        'Authorization': `${jwtToken}`,
+      },
+      body: JSON.stringify(projectData),
     })
-    .catch((error) => {
-      console.error('Error:', error.response.data);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Response from the server:', data);
+  
+        setProjectTitle('');
+        setProjectDescription('');
+        setBudget('');
+        setStartDate(null);
+        setEndDate(null);
+        setProjectManager('');
+        setStatus('In Progress');
+        setTeamMembers(['']);
+        setValues([]);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
+  
 
   const [textValue, setTextValue] = useState(""); // State for the main textbox
   const [values, setValues] = useState([]); // State to store added values

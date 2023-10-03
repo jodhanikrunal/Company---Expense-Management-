@@ -56,8 +56,8 @@
   border: 0.5px solid black;
   border-radius: 11px;
   margin-top: 11%;
-  width: 90%;
-  margin-left: 8%;
+  width: 68%;
+  margin-left: -1%;
   padding-left: 5%;
 }
 
@@ -71,6 +71,11 @@
   margin-right: 5%;
 }
 
+#status{
+  border:1px solid black;
+  border-radius: 8px;
+  height: 25px;
+}
 
 .add_member{
   border: 0.5px solid black;
@@ -85,7 +90,7 @@
 .add_member:hover{
   color: #ffffff;
   /* border: 0.5px solid black; */
-  background-color: rgba(43, 0, 255, 0.893);
+  background-color: #007bff;
 }
 
 .mem{
@@ -138,7 +143,7 @@ hr{
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  margin-top: -5%;
+  margin-top: -4%;
   width: 63px;
 }
 
@@ -180,7 +185,7 @@ hr{
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  margin-top: -6%;
+  margin-top: -4%;
   width: 72px;
 }
 
@@ -466,7 +471,7 @@ hr{
   /* margin-left: 41.5%; */
   padding: 6.5px 20px 6.5px 20px;
   color: #ffffff;
-  background-color: rgba(43, 0, 255, 0.893);
+  background-color: #007bff;
 }
 
 
@@ -486,7 +491,7 @@ hr{
   font-family: "Inter-SemiBold", Helvetica;
   font-size: 20.3px;
   font-weight: 600;
-  left: 438px;
+  left: 433px;
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
@@ -505,7 +510,7 @@ hr{
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  top: 28px;
+  top: 30px;
   white-space: nowrap;
 }
 

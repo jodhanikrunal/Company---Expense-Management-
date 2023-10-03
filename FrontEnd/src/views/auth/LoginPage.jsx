@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -38,7 +38,7 @@ export default function LoginPage() {
   };
 
   const handleSigninClick = async (e) => {
-    // console.log("Business Email:", businessEmail);
+    // console.log("Business Email:", businessEmail); 
     // console.log("Password:", password);
     e.preventDefault();
 
@@ -53,10 +53,16 @@ export default function LoginPage() {
 
       if (response.status === 200) {
         const responseData = await response.json();
-
-        localStorage.setItem("jwtToken", responseData.token);
+        // console.log(responseData.result);
+        //login kr okk ubhore hu kru
+        //Aa line ma lkh const jwtToken = localStorage.getItem("jwtToken"); aa log karav 
+        // khm login kru hve waittt
+        // console.log("Token from login : ",responseData.result);
         
-        console.log("Login successful:", responseData);
+        localStorage.setItem("jwtToken", responseData.result);
+        
+        
+        // console.log("Login successful:", responseData);
         setIsSnackbarOpen(true);
       } else if (response.status === 401) {
         setIsInvalidPasswordSnackbarOpen(true);
@@ -69,14 +75,6 @@ export default function LoginPage() {
     }
     setBusinessEmail("");
     setPassword("");
-  };
-
-  const handlePrevSlide = () => {
-    setCurrentSlide(currentSlide === 1 ? 3 : currentSlide - 1);
-  };
-
-  const handleNextSlide = () => {
-    setCurrentSlide(currentSlide === 3 ? 1 : currentSlide + 1);
   };
 
   const isFormFilled = businessEmail.trim() !== "" && password.trim() !== "";

@@ -9,6 +9,8 @@ import { MdBarChart, MdDashboard } from "react-icons/md";
 import Navbar from "components/navbar";
 import routes from "routes.js";
 import CreateNewExpense from "./CreateNewExpense.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   useGlobalFilter,
@@ -174,6 +176,7 @@ export default function Expense(props) {
           >
             <div className="modal-content">
               <CreateNewExpense className="create-expense" />
+              <ToastContainer />
               <button className="close-button" onClick={closeModal}>
                 Close
               </button>

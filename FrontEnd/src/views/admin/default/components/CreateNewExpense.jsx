@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './CreateNewExpense.css'; 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import TextareaAutosize from "react-textarea-autosize";
 
-export default function AddExpenseForm() {
+
+export default function CreateNewExpense() {
+
+  const [isFormOpen, setIsFormOpen] = useState(true);
+
   const [expenseData, setExpenseData] = useState({
     expenseName: "",
     amount: "",
@@ -47,10 +54,18 @@ export default function AddExpenseForm() {
   const handleAddExpense = (e) => {
     e.preventDefault();
     console.log("Expense Data:", expenseData);
+    toast.success("Expense Added Successfully", {
+      position: toast.POSITION.BOTTOM_CENTER,
+      autoClose: 2000, 
+      onClose: () => {
+        // Close the form by setting isFormOpen to false
+        setIsFormOpen(false);
+      },
+    });
   };
 
   return (
-    <div className="create-new-expense">
+    <div className={`create-new-expense ${isFormOpen ? "" : "hidden"}`}>
       <form onSubmit={handleAddExpense} className="expense-form">
         <div className="column">
           <div className="input-group">
@@ -100,7 +115,7 @@ export default function AddExpenseForm() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="currency">Currency</label>&nbsp;&nbsp;
+            <label htmlFor="currency">Currency</label><br/>
             <select
               id="currency"
               name="currency"
@@ -129,10 +144,10 @@ export default function AddExpenseForm() {
 
         <div className="column">
           <div className="input-group">
-            <label htmlFor="paymentMethod">Payment Method</label>&nbsp;&nbsp;
+            <label htmlFor="paymentMethod">Payment Method</label><br/>
             <select
-              id="paymentmethod"
-              name="paymentmethod"
+              id="paymentMethod"
+              name="paymentMethod"
               value={expenseData.paymentMethod}
               onChange={handleChange}
               required
@@ -169,7 +184,7 @@ export default function AddExpenseForm() {
 
 
           <div className="input-group">
-            <label htmlFor="taxAmount">Tax Amount</label>
+            <label htmlFor="taxAmount">Tax Amount</label><br/>
             <input
               type="number"
               id="taxAmount"
@@ -183,14 +198,14 @@ export default function AddExpenseForm() {
 
           <div className="input-group">
             <label htmlFor="notes">Notes</label><br />
-            <input
-              type="text"
-              id="notes"
-              name="notes"
-              value={expenseData.notes}
-              onChange={handleChange}
-              required
-            />
+            <TextareaAutosize
+                id="notes"
+                name="notes"
+                value={expenseData.notes}
+                onChange={handleChange}
+                minRows={3} 
+                maxRows={10}
+              />
           </div>
         </div>
 
