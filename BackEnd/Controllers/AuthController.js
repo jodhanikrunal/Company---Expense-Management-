@@ -108,7 +108,6 @@ exports.authLogin = async (req, res) => {
       result: authToken,
       _id: user._id,
       email: user.email,
-      // password: user.password,
       type: "user",
     });
   } catch (err) {

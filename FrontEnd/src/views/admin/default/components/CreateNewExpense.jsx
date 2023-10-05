@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import './CreateNewExpense.css'; 
+import './CreateNewExpense.css';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TextareaAutosize from "react-textarea-autosize";
+import axios from "axios";
 
 
 export default function CreateNewExpense() {
@@ -15,7 +16,7 @@ export default function CreateNewExpense() {
     expenseName: "",
     amount: "",
     date: null,
-    category: "", 
+    category: "",
     currency: "",
     documents: "",
     paymentMethod: "",
@@ -26,12 +27,13 @@ export default function CreateNewExpense() {
   });
 
   const handleFileUpload = (e) => {
+    // console.log("Handle File Upload : ",e.target.files[0]);
     const file = e.target.files[0];
     if (file) {
       const fileName = file.name;
       setExpenseData({
         ...expenseData,
-        documents: fileName,
+        documents: file,
       });
     }
   };
@@ -51,18 +53,62 @@ export default function CreateNewExpense() {
     });
   };
 
-  const handleAddExpense = (e) => {
+
+
+  const handleAddExpense = async (e) => {
+    console.log("Clicked!!!!");
     e.preventDefault();
-    console.log("Expense Data:", expenseData);
-    toast.success("Expense Added Successfully", {
-      position: toast.POSITION.BOTTOM_CENTER,
-      autoClose: 2000, 
-      onClose: () => {
-        // Close the form by setting isFormOpen to false
-        setIsFormOpen(false);
-      },
+
+    const data = {
+      expenseName: expenseData.expenseName,
+      expenseAmount: expenseData.amount,
+      expenseDate: expenseData.date,
+      expenseCategory: expenseData.category,
+      expenseCurrency: expenseData.currency,
+      expenseDocument: expenseData.documents,
+      paymentMethod: expenseData.paymentMethod,
+      recieverName: expenseData.receiverName,
+      taxPercentage: expenseData.taxPercentage,
+      notes: expenseData.notes,
+      taxAmount: expenseData.taxAmount,
+    };
+
+    const formData = new FormData();
+
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
     });
+
+    try {
+      const response = await fetch("http://localhost:4000/addExpense", {
+        method: "POST",
+        body: formData,
+      });
+
+      console.log("Response before if : ", response.json());
+
+      if (response.status === 200) {
+        const responseData = await response.json();
+        console.log("Response from server:", responseData);
+        toast.success("Expense Added Successfully", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          autoClose: 2000,
+          onClose: () => {
+            setIsFormOpen(false);
+          },
+        });
+      } else {
+        console.error("Request failed with status: " + response.statusText);
+      }
+    } catch (error) {
+      console.error("Error in Catch Block:", error);
+    }
   };
+
 
   return (
     <div className={`create-new-expense ${isFormOpen ? "" : "hidden"}`}>
@@ -115,7 +161,7 @@ export default function CreateNewExpense() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="currency">Currency</label><br/>
+            <label htmlFor="currency">Currency</label><br />
             <select
               id="currency"
               name="currency"
@@ -144,7 +190,7 @@ export default function CreateNewExpense() {
 
         <div className="column">
           <div className="input-group">
-            <label htmlFor="paymentMethod">Payment Method</label><br/>
+            <label htmlFor="paymentMethod">Payment Method</label><br />
             <select
               id="paymentMethod"
               name="paymentMethod"
@@ -184,7 +230,7 @@ export default function CreateNewExpense() {
 
 
           <div className="input-group">
-            <label htmlFor="taxAmount">Tax Amount</label><br/>
+            <label htmlFor="taxAmount">Tax Amount</label><br />
             <input
               type="number"
               id="taxAmount"
@@ -199,13 +245,13 @@ export default function CreateNewExpense() {
           <div className="input-group">
             <label htmlFor="notes">Notes</label><br />
             <TextareaAutosize
-                id="notes"
-                name="notes"
-                value={expenseData.notes}
-                onChange={handleChange}
-                minRows={3} 
-                maxRows={10}
-              />
+              id="notes"
+              name="notes"
+              value={expenseData.notes}
+              onChange={handleChange}
+              minRows={3}
+              maxRows={10}
+            />
           </div>
         </div>
 
@@ -216,3 +262,6 @@ export default function CreateNewExpense() {
     </div>
   );
 }
+
+
+

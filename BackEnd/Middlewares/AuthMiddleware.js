@@ -24,7 +24,7 @@ module.exports = async (req, res, next) => {
             throw new Error();
         }
         req.user = user;
-        req.token = jwttoken;
+        // req.token = jwttoken;
         next();
     } catch (error) {
         console.log("Error in Catch Block : ", error);

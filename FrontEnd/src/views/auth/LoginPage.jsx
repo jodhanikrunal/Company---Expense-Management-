@@ -53,14 +53,9 @@ export default function LoginPage() {
 
       if (response.status === 200) {
         const responseData = await response.json();
-        // console.log(responseData.result);
-        //login kr okk ubhore hu kru
-        //Aa line ma lkh const jwtToken = localStorage.getItem("jwtToken"); aa log karav 
-        // khm login kru hve waittt
         // console.log("Token from login : ",responseData.result);
         
         localStorage.setItem("jwtToken", responseData.result);
-        
         
         // console.log("Login successful:", responseData);
         setIsSnackbarOpen(true);

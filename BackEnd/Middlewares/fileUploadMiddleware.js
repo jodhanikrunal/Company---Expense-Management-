@@ -1,55 +1,49 @@
+//By Rj Fachara
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs'); 
 
-const fileUploaderMiddleware = (fileType) => {
+const directory = 'uploads/';
 
-    var directory = `uploads/`;
+if (!fs.existsSync(directory)) {
+    fs.mkdirSync(directory, { recursive: true });
+}
 
-    switch (fileType) {
-        case "receipts":
-            directory = directory + `receipts`;
-            break;
-        case "bills":
-            directory = directory + `bills`;
-            break;
-        default:
-            break;
-    }
+console.log('Directory:', directory);
 
-    return (req, res, next) => {
+// File upload middleware
+const fileUploaderMiddleware = (req, res, next) => {
+    const storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, directory);
+        },
+        filename: (req, file, cb) => {
+            const uniqueSuffix = Date.now();
+            const originalName = file.originalname;
+            const fileExtension = path.extname(originalName);
+            const filename = uniqueSuffix + fileExtension;
+            cb(null, filename);
+        }
+    });
+    
+    const upload = multer({ storage });
 
-        const storage = multer.diskStorage({
-            destination: (req, file, cb) => {
-                cb(null, directory);
-            },
-            filename: (req, file, cb) => {
-                const uniqueSuffix = Date.now();
-                const originalName = file.originalname;
-                const fileExtension = path.extname(originalName);
-                const filename = uniqueSuffix + '-' + req.user._id + fileExtension;
-                cb(null, filename);
-            }
-        });
+    upload.single('expenseDocument')(req, res, (err) => {
+        if (err) {
+            console.log('Error in middleware:', err);
+            return res.status(400).json({ success: false, message: 'File upload failed' });
+        }
 
-        const upload = multer({ storage });
+        // console.log("Uploaded File : ",req.file);
 
-        console.log(directory + " " + req.user._id);
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: 'No file uploaded' });
+        }
 
-        upload.single('file')(req, res, (err) => {
-            if (err) {
-                console.log("err in mw : " + err);
-                return res.status(400).json({ success: false, message: 'File upload failed' });
-            }
-
-            if (!req.file) {
-                return res.status(400).json({ success: false, message: 'No file uploaded!!' });
-            }
-
-            const fileUrl = `http://localhost:4000/${directory}/${req.file.filename}`;
-            req.fileUrl = fileUrl;
-            next();
-        });
-    };
+        const fileUrl = `http://localhost:4000/${directory}/${req.file.filename}`;
+        req.fileUrl = fileUrl;
+        next();
+    });
 };
 
 module.exports = fileUploaderMiddleware;

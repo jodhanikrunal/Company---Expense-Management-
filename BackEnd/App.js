@@ -5,23 +5,29 @@ const express = require("express");
 const path = require("path");
 
 const logger = require("morgan");
+var bodyParser = require('body-parser');
+const { urlencoded } = require("express");
 
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+  origin: 'http://localhost:3000',
     credentials: true,
   }));
-
-app.use(express.urlencoded({ limit: "10mb", extended: true }));
-app.use(express.json({ limit: "10mb" }));
+  
+  // limit: "100mb"  
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true }));
+app.use(express.json());
 
 app.use(logger("dev"));
 
 require("./Routes/AuthRoutes.js")(app);
 require("./Routes/addProjectRoutes.js")(app);
-// require("./Routes/addExpenseRoute.js")(app);
+require("./Routes/getallprojects")(app);
+require("./Routes/addExpenseRoute.js")(app);
 
 app.listen(PORT, () => {
   console.log(`Server listening on : http://localhost:${PORT}`);

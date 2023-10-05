@@ -18,18 +18,18 @@ const ExpenseSchema = mongoose.Schema({
         type: Date,
         default: Date.Now,
     },
-    expenseCatagory: {
+    expenseCategory: {
         type: String,
         required: true,
     },
-    expenseCurreency: {
+    expenseCurrency: {
         type: String,
         required: true,
     },
     expenseDocument: {
         type: String
     },
-    PaymentMethod: {
+    paymentMethod: {
         type: String,
         required: true,
     },

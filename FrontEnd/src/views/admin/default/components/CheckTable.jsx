@@ -157,11 +157,48 @@ export default function CheckTable() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   fetch("http://localhost:4000/allprojects")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setTableData(data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    fetch("http://localhost:4000/allprojects")
+    // Retrieve the JWT token from local storage
+    const jwtToken = localStorage.getItem("jwtToken");
+    console.log("Token in Frontend : ",jwtToken);
+  
+    // Define the headers object with the Authorization header
+    const headers = {
+      'Content-Type': 'application/json',
+      "Authorization": `${jwtToken}`, 
+    };
+  
+    // Define the request options, including headers
+    const requestOptions = {
+      method: "GET", 
+      headers: headers,
+    };
+  
+    fetch("http://localhost:4000/allprojects", requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        setTableData(data);
+        if (Array.isArray(data)) {
+          // If 'data' is an array, set it directly
+          setTableData(data);
+        } else if (data && Array.isArray(data.projects)) {
+          // If 'data' contains an array under a key like 'projects', use that
+          setTableData(data.projects);
+        } else {
+          console.error("Data format is not as expected:", data);
+        }
         setLoading(false);
       })
       .catch((error) => {
@@ -169,6 +206,7 @@ export default function CheckTable() {
         setLoading(false);
       });
   }, []);
+  
 
   const columns = useMemo(() => [
     // Define your columns here
