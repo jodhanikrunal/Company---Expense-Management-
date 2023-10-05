@@ -1,6 +1,6 @@
 import React, { useMemo,useState } from "react";
 import Modal from 'react-modal';
-import { Link, useLocation } from "react-router-dom"; 
+import { Link, useLocation,useParams } from "react-router-dom"; 
 import CardMenu from "components/card/CardMenu";
 import Checkbox from "components/checkbox";
 import Card from "components/card"; 
@@ -92,6 +92,9 @@ export default function Expense(props) {
 
   const { columnsData, tableData } = props;
 
+  const {id} = useParams();
+  // console.log("ID in Expense : ",id);
+
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
 
@@ -160,7 +163,7 @@ export default function Expense(props) {
         // {...rest}
         />
         <div className="mt-8 w-1/6"> 
-          <Link to="/project/:projectName" onClick={openModal} >
+          <Link to ={`/project/${id}`}  onClick={openModal} >
             <Widget 
               icon={<MdBarChart className="h-7 w-7" />}
               title={"Add New Expense"}   

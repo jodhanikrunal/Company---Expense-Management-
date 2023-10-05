@@ -19,7 +19,7 @@ export default function App() {
       {/* <Route path="auth/*" element={<AuthLayout />} /> */}
       <Route path="admin/*" element={<AdminLayout />} />
       <Route path="rtl/*" element={<RtlLayout />} />
-      <Route path="/project/:projectName" 
+      <Route path="/project/:id" 
       element={<Expense
                 columnsData={columnsDataCheck}
                 tableData={tableDataCheck} />} />

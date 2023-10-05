@@ -157,23 +157,10 @@ export default function CheckTable() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/allprojects")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setTableData(data);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data:", error);
-  //       setLoading(false);
-  //     });
-  // }, []);
-
   useEffect(() => {
     // Retrieve the JWT token from local storage
     const jwtToken = localStorage.getItem("jwtToken");
-    console.log("Token in Frontend : ",jwtToken);
+    // console.log("Token in Frontend : ",jwtToken);
   
     // Define the headers object with the Authorization header
     const headers = {
@@ -199,6 +186,7 @@ export default function CheckTable() {
         } else {
           console.error("Data format is not as expected:", data);
         }
+        
         setLoading(false);
       })
       .catch((error) => {
@@ -212,10 +200,10 @@ export default function CheckTable() {
     // Define your columns here
     {
       Header: "Project Name",
-      accessor: "projectTitle", // Replace with the actual field name from your data
+      accessor: "projectTitle",    
       Cell: ({ row }) => (
         <Link
-          to={`/project/${encodeURIComponent(row.original.id)}`}
+          to={`/project/${(row.original._id)}`}
           className="text-sm font-bold text-navy-700 dark:text-white"
         >
           {row.original.projectTitle}
@@ -224,15 +212,15 @@ export default function CheckTable() {
     },
     {
       Header: "Project Manager",
-      accessor: "projectManager", // Replace with the actual field name from your data
+      accessor: "projectManager", 
     },
     {
       Header: "Max. Budget",
-      accessor: "maxBudget", // Replace with the actual field name from your data
+      accessor: "maxBudget", 
     },
     {
       Header: "End Date",
-      accessor: "endDate", // Replace with the actual field name from your data
+      accessor: "endDate", 
       Cell: ({ value }) => {
         const date = new Date(value);
         const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;

@@ -1,14 +1,18 @@
 import React, { useState } from "react";
+import {useParams} from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './CreateNewExpense.css';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TextareaAutosize from "react-textarea-autosize";
-import axios from "axios";
+// import axios from "axios";
 
 
 export default function CreateNewExpense() {
+
+  const {id} = useParams();
+  // console.log("ID in CreateNewExpense: ", id);
 
   const [isFormOpen, setIsFormOpen] = useState(true);
 
@@ -60,6 +64,7 @@ export default function CreateNewExpense() {
     e.preventDefault();
 
     const data = {
+      project: id,
       expenseName: expenseData.expenseName,
       expenseAmount: expenseData.amount,
       expenseDate: expenseData.date,
@@ -89,7 +94,7 @@ export default function CreateNewExpense() {
         body: formData,
       });
 
-      console.log("Response before if : ", response.json());
+      // console.log("Response before if : ", response.json());
 
       if (response.status === 200) {
         const responseData = await response.json();
