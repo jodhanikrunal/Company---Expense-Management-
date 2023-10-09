@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 exports.ProjectValidator = Joi.object({
-    project_name: Joi.string().required(),
+    // project_name: Joi.string().required(),
     project_description: Joi.string().required(),
     max_budget: Joi.number().required(),
     start_date: Joi.date().required(),

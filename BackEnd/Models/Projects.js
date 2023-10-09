@@ -31,13 +31,13 @@ const ProjectSchema = mongoose.Schema({
         required: true,
     },
     progress: {
-        type: Number,
-        required: true,
-    },
-    status: {
         type: String,
         required: true,
     },
+    // status: {
+    //     type: String,
+    //     required: true,
+    // },
     projectMembers: [
         {
             employeeName: {

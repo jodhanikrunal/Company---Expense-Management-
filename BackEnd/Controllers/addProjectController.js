@@ -13,10 +13,10 @@ exports.addProject = async (req, res) => {
         if (!company) {
             return res.status(404).json({ message: "Company not found." });
         }
-        const { error } = ProjectValidator.validate(req.body);
-        if (error) {
-            return res.status(400).json({ message: error.details[0].message });
-        }
+        // const { error } = ProjectValidator.validate(req.body);
+        // if (error) {
+            // return res.status(400).json({ message: error.details[0].message });
+        // }
 
         const {
             projectTitle, 

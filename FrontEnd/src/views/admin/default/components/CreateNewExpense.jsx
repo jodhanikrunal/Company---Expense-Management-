@@ -12,7 +12,7 @@ import TextareaAutosize from "react-textarea-autosize";
 export default function CreateNewExpense() {
 
   const {id} = useParams();
-  // console.log("ID in CreateNewExpense: ", id);
+  console.log("ID in CreateNewExpense: ", id);
 
   const [isFormOpen, setIsFormOpen] = useState(true);
 

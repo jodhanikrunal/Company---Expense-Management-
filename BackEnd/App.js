@@ -25,9 +25,9 @@ app.use(express.json());
 app.use(logger("dev"));
 
 require("./Routes/AuthRoutes.js")(app);
-require("./Routes/addProjectRoutes.js")(app);
-require("./Routes/getallprojects")(app);
-require("./Routes/addExpenseRoute.js")(app);
+require("./Routes/ProjectRoutes.js")(app);
+// require("./Routes/getallprojects")(app);
+require("./Routes/ExpenseRoute.js")(app);
 
 app.listen(PORT, () => {
   console.log(`Server listening on : http://localhost:${PORT}`);

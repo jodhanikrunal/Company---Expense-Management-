@@ -9,7 +9,7 @@ if (!fs.existsSync(directory)) {
     fs.mkdirSync(directory, { recursive: true });
 }
 
-console.log('Directory:', directory);
+// console.log('Directory:', directory);
 
 // File upload middleware
 const fileUploaderMiddleware = (req, res, next) => {

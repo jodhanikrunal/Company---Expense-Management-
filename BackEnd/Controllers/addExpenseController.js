@@ -41,11 +41,11 @@ exports.addExpense = async (req, res) => {
         const savedExpense = await expense.save();
         // console.log("Saved:",savedExpense);
         if(savedExpense){
-            console.log("Inside IF");
+            // console.log("Inside IF");
             return res.status(200).json({ message: "Expense added successfully" });
         }
         else{
-            console.log("Inside Else");
+            // console.log("Inside Else");
             return res.status(400).json({ message: "Failed to add Expense."});
         }
     } catch (error) {
