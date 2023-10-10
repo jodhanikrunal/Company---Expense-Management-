@@ -33,7 +33,7 @@
   }
   
   .sign-up-page .overlap {
-    background-color: #624bff;
+    background-color: rgb(62, 27, 245);
     border-radius: 15.04px;
     height: 96%;
     left: 15px;
@@ -76,7 +76,7 @@
     /* position: absolute; */
     text-align: center;
     /* border: 5px solid green; */
-    margin-top: 4%;
+    margin-top: 5%;
   }
   
   .sign-up-page .overlap-group {
@@ -381,7 +381,7 @@
     border-radius: 5px;
     transition:opacity 0.5s ease-in-out;
     height: 180px;
-    margin-top: -5%;
+    margin-top: 5%;
   }
   
   .slide.active {
@@ -412,7 +412,7 @@
   
   .Images{
     width: 370px;
-    height: 180px;
+    height: 140px;
     border-radius: 21px;
   }
   

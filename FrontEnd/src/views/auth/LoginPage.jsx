@@ -59,6 +59,7 @@ export default function LoginPage() {
         
         // console.log("Login successful:", responseData);
         setIsSnackbarOpen(true);
+        window.location.href = "/admin/default";
       } else if (response.status === 401) {
         setIsInvalidPasswordSnackbarOpen(true);
         console.log("Login failed: Invalid Password");

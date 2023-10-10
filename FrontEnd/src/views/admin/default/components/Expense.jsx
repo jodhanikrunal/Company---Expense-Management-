@@ -233,39 +233,59 @@ import {
 } from "react-table";
 
 export default function Expense(props) {
-  const { columnsData } = props;
-  const { id } = useParams();
-  console.log("ID in Expense : ", id);
+  // const { columnsData } = props;
 
-  const columns = useMemo(() => columnsData, [columnsData]);
+  const { id } = useParams();
+  
+  // console.log("ID in Expense : ", id);
+
+  // const columns = useMemo(() => columnsData, [columnsData]);
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(true);
   const [currentRoute, setCurrentRoute] = useState("Main Dashboard");
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const tableInstance = useTable(
-    {
-      columns,
-      data,
-    },
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    state,
-  } = tableInstance;
-
-  state.pageSize = 11;
+  
 
   const location = useLocation();
+
+  const columns = useMemo(() => [
+    // Define your columns here
+    {
+      Header: "Expense Name",
+      accessor: "expenseName",    
+      Cell: ({ row }) => (
+        <Link
+          to={`/project/${(row.original._id)}`}
+          className="text-sm font-bold text-navy-700 dark:text-white"
+        >
+          {row.original.expenseName}
+        </Link>
+      ),
+    },
+    {
+      Header: "Reciever Name",
+      accessor: "recieverName", 
+    },
+    {
+      Header: "Expense Amount",
+      accessor: "expenseAmount", 
+    },
+    {
+      Header: "Expense Currency",
+      accessor: "expenseCurrency", 
+    },
+    {
+      Header: "End Date",
+      accessor: "expenseDate", 
+      Cell: ({ value }) => {
+        const date = new Date(value);
+        const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+        return formattedDate;
+      },
+    },
+  ], []);
 
   useEffect(() => {
     fetchData(); // Fetch data when the component mounts
@@ -291,6 +311,7 @@ export default function Expense(props) {
       });
   };
   
+  
 
   const getActiveRoute = (routes) => {
     let activeRoute = "Main Dashboard";
@@ -309,6 +330,29 @@ export default function Expense(props) {
   const closeModal = () => {
     setIsOpen(false);
   };
+
+  const tableInstance = useTable(
+    {
+      columns,
+      data,
+    },
+    useGlobalFilter,
+    useSortBy,
+    usePagination
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    state,
+  } = tableInstance;
+
+  state.pageSize = 11;
+
+ 
 
   if (loading) {
     return <p>Loading...</p>;

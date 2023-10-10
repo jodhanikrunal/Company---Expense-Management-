@@ -12,7 +12,7 @@ import TextareaAutosize from "react-textarea-autosize";
 export default function CreateNewExpense() {
 
   const {id} = useParams();
-  console.log("ID in CreateNewExpense: ", id);
+  // console.log("ID in CreateNewExpense: ", id);
 
   const [isFormOpen, setIsFormOpen] = useState(true);
 
@@ -100,7 +100,7 @@ export default function CreateNewExpense() {
         const responseData = await response.json();
         console.log("Response from server:", responseData);
         toast.success("Expense Added Successfully", {
-          position: toast.POSITION.BOTTOM_CENTER,
+          position: toast.CENTER,
           autoClose: 2000,
           onClose: () => {
             setIsFormOpen(false);
@@ -108,7 +108,7 @@ export default function CreateNewExpense() {
         });
       } else {
         console.error("Request failed with status: " + response.statusText);
-      }
+      } 
     } catch (error) {
       console.error("Error in Catch Block:", error);
     }
@@ -267,6 +267,4 @@ export default function CreateNewExpense() {
     </div>
   );
 }
-
-
 
