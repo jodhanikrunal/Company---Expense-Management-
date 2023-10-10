@@ -193,7 +193,7 @@ export default function SignUpPage() {
       const responseData = await response.json();
       console.log("OTP verification successful:", responseData);
 
-      window.location.href = "/";
+      window.location.href = "/login";
     }
   };
 
