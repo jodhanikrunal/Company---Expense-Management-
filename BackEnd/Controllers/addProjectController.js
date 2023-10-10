@@ -54,3 +54,71 @@ exports.addProject = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.editProject = async (req, res) => {
+    try {
+        const loggedInUserId = req.user._id; // Assuming you have authentication middleware
+        const projectId = req.params.projectId;
+        
+        // Check if the project exists and belongs to the logged-in company
+        const project = await Project.findOne({ _id: projectId, company: loggedInUserId });
+
+        if (!project) {
+            return res.status(404).json({ message: "Project not found." });
+        }
+
+        const {
+            projectTitle, 
+            projectDescription, 
+            maxBudget, 
+            startDate, 
+            endDate, 
+            projectManager, 
+            progress, 
+            status,
+            projectMembers
+        } = req.body;
+
+        // Update the project fields
+        project.projectTitle = projectTitle;
+        project.projectDescription = projectDescription;
+        project.maxBudget = maxBudget;
+        project.startDate = startDate;
+        project.endDate = endDate;
+        project.projectManager = projectManager;
+        project.progress = progress;
+        project.status = status;
+        project.projectMembers = projectMembers;
+
+        const updatedProject = await project.save();
+
+        if (updatedProject) {
+            return res.status(200).json({ message: "Project updated successfully" });
+        } else {
+            return res.status(400).json({ message: "Failed to update Project." });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+exports.removeProject = async (req, res) => {
+    try {
+        const loggedInUserId = req.user._id; // Assuming you have authentication middleware
+        const projectId = req.params.projectId;
+
+        // Check if the project exists and belongs to the logged-in company
+        const project = await Project.findOne({ _id: projectId, company: loggedInUserId });
+
+        if (!project) {
+            return res.status(404).json({ message: "Project not found." });
+        }
+
+        // Perform project removal logic
+        await Project.findByIdAndRemove(projectId);
+
+        return res.status(200).json({ message: "Project removed successfully" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
