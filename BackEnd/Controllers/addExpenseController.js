@@ -1,8 +1,6 @@
-//By Rj Fachara
-
 require("dotenv").config({ path: "../.env" });
 const Expense = require("../Models/Expense");
-const project = require("../Models/Projects");
+const Project = require("../Models/Projects");
 const { expenseValidator } = require("../Services/Validators/expenseValidator");
 
 exports.addExpense = async (req, res) => {
@@ -19,34 +17,28 @@ exports.addExpense = async (req, res) => {
             notes,
             taxAmount,
         } = req.body;
-        
-        // project = req.body.project;
-        // console.log("Project : ",project);
-        // console.log(req.body);
 
         const expense = new Expense({
-            project:req.body.project,
+            project: req.body.project,
             expenseName,
-            expenseAmount,  
+            expenseAmount,
             expenseDate,
             expenseCategory,
             expenseCurrency,
-            expenseDocument : req.fileUrl,
+            expenseDocument: req.fileUrl,
             paymentMethod,
             recieverName,
             taxPercentage,
             notes,
             taxAmount,
         });
+
         const savedExpense = await expense.save();
-        // console.log("Saved:",savedExpense);
-        if(savedExpense){
-            // console.log("Inside IF");
+
+        if (savedExpense) {
             return res.status(200).json({ message: "Expense added successfully" });
-        }
-        else{
-            // console.log("Inside Else");
-            return res.status(400).json({ message: "Failed to add Expense."});
+        } else {
+            return res.status(400).json({ message: "Failed to add Expense." });
         }
     } catch (error) {
         console.error("Error in addExpense:", error);
@@ -54,3 +46,31 @@ exports.addExpense = async (req, res) => {
     }
 };
 
+exports.removeExpense = async (req, res) => {
+    try {
+        const projectId = req.params.projectId;
+
+        // Perform project removal logic (e.g., using Mongoose)
+        await Project.findByIdAndRemove(projectId);
+
+        return res.status(200).json({ message: "Project removed successfully" });
+    } catch (error) {
+        console.error("Error in removeProject:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+exports.editExpense = async (req, res) => {
+    try {
+        const projectId = req.params.projectId;
+        const updatedData = req.body;
+
+        // Perform project update logic (e.g., using Mongoose)
+        await Project.findByIdAndUpdate(projectId, updatedData);
+
+        return res.status(200).json({ message: "Project edited successfully" });
+    } catch (error) {
+        console.error("Error in editProject:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
