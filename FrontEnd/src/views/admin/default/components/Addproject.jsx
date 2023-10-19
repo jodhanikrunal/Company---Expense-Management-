@@ -4,6 +4,8 @@ import "./Addproject.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "font-awesome/css/font-awesome.min.css";
 import TextareaAutosize from "react-textarea-autosize";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import axios from "axios";
 // import { Height } from "@mui/icons-material";
 // import Box from '@mui/material/Box';
@@ -19,6 +21,8 @@ export default function CreateNewProject() {
   const [projectDescription, setProjectDescription] = useState("");
   const [budget, setBudget] = useState("");
   const [teamMembers, setTeamMembers] = useState([""]);
+  const [isFormOpen, setIsFormOpen] = useState(true);
+
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -47,65 +51,6 @@ export default function CreateNewProject() {
   const handleBudgetChange = (e) => {
     setBudget(e.target.value);
   };
-
-
-  // const handleAddProject = (event) => {
-    
-  //  event.preventDefault();
-
-  //   // console.log("Successfully added project");
-  //   const projectMembersArray = values.filter((value) => value.trim() !== '');
-  //   const projectData = {
-  //     projectTitle: projectTitle,
-  //     projectDescription: projectDescription,
-  //     maxBudget: budget,
-  //     startDate: startDate,
-  //     endDate: endDate,
-  //     projectManager: projectManager,
-  //     progress: status,
-  //     projectMembers: projectMembersArray.map((member) => ({
-  //       employeeName: member,
-  //     })),
-  //   };
-
-  //   // console.log('Project Data:', projectData);
-  //   const jwtToken = localStorage.getItem("jwtToken");
-  //   console.log("Jwt Token:",jwtToken);
-
-  //   const headers = {
-  //     'Authorization': `Bearer ${jwtToken}`, 
-  //     // 'Authorization': 'jwtToken', 
-  //     'Content-Type': 'application/json', 
-  //   };
-
-  //   axios
-  //   .post('http://localhost:4000/addProject', projectData,{ headers })
-  //   .then((response) => {
-  //     console.log('Response from the server:', response.data);  
-      
-
-  //     setProjectTitle('');
-  //     setProjectDescription('');
-  //     setBudget('');
-  //     setStartDate(null);
-  //     setEndDate(null);
-  //     setProjectManager('');
-  //     setStatus('In Progress');
-  //     setTeamMembers(['']);
-
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error:', error.response.data);
-  //   });
-  //     setProjectTitle('');
-  //     setProjectDescription('');
-  //     setBudget('');
-  //     setStartDate(null);
-  //     setEndDate(null);
-  //     setProjectManager('');
-  //     setStatus('In Progress');
-  //     setTeamMembers(['']);
-  // };
 
   const handleAddProject = (event) => {
     event.preventDefault();
@@ -139,6 +84,13 @@ export default function CreateNewProject() {
       .then((response) => response.json())
       .then((data) => {
         console.log('Response from the server:', data);
+        toast.success("Expense Added Successfully", {
+          position: toast.CENTER,
+          autoClose: 2000,
+          onClose: () => {
+            setIsFormOpen(false);
+          },
+        });
   
         setProjectTitle('');
         setProjectDescription('');
@@ -177,7 +129,7 @@ export default function CreateNewProject() {
   };
 
   return ( 
-    <div className="create-new-project">
+    <div className={`create-new-project ${isFormOpen ? "" : "hidden"}`}>
       <div className="overlap-wrapper">
         <div className="overlap">
           <div className="frame">

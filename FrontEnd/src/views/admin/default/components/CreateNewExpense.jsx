@@ -84,9 +84,9 @@ export default function CreateNewExpense() {
       formData.append(key, data[key]);
     }
 
-    formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    });
+    // formData.forEach((value, key) => {
+    //   console.log(`${key}: ${value}`);
+    // });
 
     try {
       const response = await fetch("http://localhost:4000/addExpense", {

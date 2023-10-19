@@ -40,9 +40,9 @@
 
 //   return (
 //     <>
-    
+
 //     <Card extra={"w-full h-full sm:overflow-auto px-6"}>
-      
+
 //       <header className="relative flex items-center justify-between pt-4">
 //         <div className="text-xl font-bold text-navy-700 dark:text-white">
 //           All Projects
@@ -146,6 +146,9 @@ import React, { useMemo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import CardMenu from "components/card/CardMenu";
 import Card from "components/card";
+import Modal from "react-modal";
+import EditProject from './EditProject';
+import DeleteProject from './DeleteProject';
 import {
   useGlobalFilter,
   usePagination,
@@ -157,23 +160,34 @@ export default function CheckTable() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [deleteisOpen, setDeleteIsOpen] = useState(false);
+
+  const [selectedProject, setSelectedProject] = useState(null);
+
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
+  const opendeleteModal = () => setDeleteIsOpen(true);
+  const closedeleteModal = () => setDeleteIsOpen(false);
+
+
   useEffect(() => {
-    // Retrieve the JWT token from local storage
     const jwtToken = localStorage.getItem("jwtToken");
     // console.log("Token in Frontend : ",jwtToken);
-  
-    // Define the headers object with the Authorization header
+
     const headers = {
       'Content-Type': 'application/json',
-      "Authorization": `${jwtToken}`, 
+      "Authorization": `${jwtToken}`,
     };
-  
-    // Define the request options, including headers
+
     const requestOptions = {
-      method: "GET", 
+      method: "GET",
       headers: headers,
     };
-  
+
     fetch("http://localhost:4000/allprojects", requestOptions)
       .then((response) => response.json())
       .then((data) => {
@@ -186,7 +200,7 @@ export default function CheckTable() {
         } else {
           console.error("Data format is not as expected:", data);
         }
-        
+
         setLoading(false);
       })
       .catch((error) => {
@@ -194,13 +208,43 @@ export default function CheckTable() {
         setLoading(false);
       });
   }, []);
-  
+
+
+  const openEditPopup = (project) => {
+    setSelectedProject(project);
+    openModal(); 
+  };
+
+  const openDeletePopup = (project) => {
+    setSelectedProject(project);
+    opendeleteModal(); 
+  };
+
+
+  // const closeEditModal = () => {
+  //   setSelectedProject(null);
+  //   isOpen(false);
+  // };
+
 
   const columns = useMemo(() => [
     // Define your columns here
     {
+      Header: "Edit",
+      accessor: "editIcon",
+      Cell: ({ row }) => (
+        <Link
+          to="/admin/default"
+          className="text-sm font-bold text-navy-700 dark:text-white"
+          onClick={() => openEditPopup(row.original)}
+        >
+          <i className="fa fa-edit"></i>
+        </Link>
+      ),
+    },
+    {
       Header: "Project Name",
-      accessor: "projectTitle",    
+      accessor: "projectTitle",
       Cell: ({ row }) => (
         <Link
           to={`/project/${(row.original._id)}`}
@@ -212,20 +256,33 @@ export default function CheckTable() {
     },
     {
       Header: "Project Manager",
-      accessor: "projectManager", 
+      accessor: "projectManager",
     },
     {
       Header: "Max. Budget",
-      accessor: "maxBudget", 
+      accessor: "maxBudget",
     },
     {
       Header: "End Date",
-      accessor: "endDate", 
+      accessor: "endDate",
       Cell: ({ value }) => {
         const date = new Date(value);
         const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
         return formattedDate;
       },
+    },
+    {
+      Header: "Delete",
+      accessor: "deleteIcon",
+      Cell: ({ row }) => (
+        <Link
+          to="/admin/default"
+          className="text-sm font-bold text-navy-700 dark:text-white"
+          onClick={() => openDeletePopup(row.original)}
+        >
+          <i className="fa fa-trash"></i>
+        </Link>
+      ),
     },
   ], []);
 
@@ -305,6 +362,38 @@ export default function CheckTable() {
           </tbody>
         </table>
       </div>
-    </Card>
+
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={closeModal}
+        contentLabel="Edit Project Modal"
+        className="custom-modal"
+        overlayClassName="custom-modal-overlay"
+      >
+        <div className="modal-content">
+          <EditProject
+            project={selectedProject}
+          />
+          <button className="close-button" onClick={closeModal}>
+            Close
+          </button>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={deleteisOpen}
+        onRequestClose={closedeleteModal}
+        contentLabel="Edit Project Modal"
+        className="custom-modal"
+        overlayClassName="custom-modal-overlay"
+      >
+        <div className="modal-content">
+        <DeleteProject
+            project={selectedProject}
+            onClose={closedeleteModal}
+          />
+        </div>
+      </Modal>
+      </Card>
   );
 }

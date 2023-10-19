@@ -75,7 +75,7 @@ exports.editProject = async (req, res) => {
             endDate, 
             projectManager, 
             progress, 
-            status,
+            // status,
             projectMembers
         } = req.body;
 
@@ -87,7 +87,7 @@ exports.editProject = async (req, res) => {
         project.endDate = endDate;
         project.projectManager = projectManager;
         project.progress = progress;
-        project.status = status;
+        // project.status = status;
         project.projectMembers = projectMembers;
 
         const updatedProject = await project.save();
