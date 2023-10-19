@@ -1,4 +1,6 @@
-  .create-new-expense {
+/* ./CreateNewExpense.css */
+
+.create-new-expense {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,25 +16,43 @@
   border-radius: 8px;
   padding: 20px;
   max-width: 800px;
-  height: 80vh;
+  height: 82vh;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#currency{
-  border:1px solid black;
+#currency,
+#notes,
+#paymentMethod {
+  border: 0.25px solid #ccc;
   border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-#notes{
-  border:1px solid black;
-  border-radius: 8px;
-  width: 79%;
-  padding-left:8px;
+#currency:focus,
+#notes:focus,
+#paymentMethod:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-#paymentMethod{
-  border:1px solid black;
+#documents {
+  border: 0.25px solid #ccc;
   border-radius: 8px;
+  padding: 12px; /* Adjusted padding */
+  height: 50px; /* Increased height */
+  width: 100%;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
+
+#documents:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
 
 .column {
   display: flex;
@@ -43,26 +63,39 @@
   margin: 10px 0;
 }
 
+
+
 label {
-  font-weight: bold;
+  font-weight: normal;
+  font-size: 18px;
+  color: #000000;
 }
 
-#documents{
-  width: 90%;
-  height: 50px;
+/* Use a pseudo-element to style the labels without affecting layout */
+.input-group::before {
+  content: attr(data-label);
+  display: block;
+  margin-bottom: 4px;
+  color: #000000;
+  font-size: 18px;
 }
-
 
 input,
 .react-datepicker__input-container input {
-  border: 1px solid #000;
+  border: 0.25px solid #ccc;
   border-radius: 8px;
-  padding: 10px;
-  height: 30px;
+  padding: 12px;
+  height: 40px;
+  width: 100%;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-size: 16px;
 }
 
-.react-datepicker__input-container input {
-  width: 100%;
+input:focus,
+.react-datepicker__input-container input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .add-expense-button {
@@ -72,9 +105,13 @@ input,
   border-radius: 8px;
   padding: 10px;
   cursor: pointer;
+  /* height: 20px; */
   width: 50%;
   height: fit-content;
-  margin-top: 1%;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  text-align: center; /* Center the button text */
+  text-transform: uppercase; /* Uppercase text */
 }
 
 .add-expense-button:hover {
@@ -82,10 +119,10 @@ input,
   cursor: pointer;
 }
 
-
 .hidden {
   display: none;
 }
 
 
 /* CSS by JYOT */
+

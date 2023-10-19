@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import {useParams} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import './CreateNewExpense.css';
+import "./CreateNewExpense.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TextareaAutosize from "react-textarea-autosize";
 // import axios from "axios";
 
-
 export default function CreateNewExpense() {
-
-  const {id} = useParams();
+  const { id } = useParams();
   // console.log("ID in CreateNewExpense: ", id);
 
   const [isFormOpen, setIsFormOpen] = useState(true);
@@ -42,12 +40,53 @@ export default function CreateNewExpense() {
     }
   };
 
+  useEffect(() => {
+    // Calculate "Tax Amount" whenever "Amount" or "Tax Percentage" changes
+    const amount = parseFloat(expenseData.amount);
+    const curr = expenseData.currency;
+    const taxPercentage = parseFloat(expenseData.taxPercentage);
+
+    if (!isNaN(amount) && !isNaN(taxPercentage)) {
+      const calculatedTaxAmount = (amount * taxPercentage) / 100;
+      setExpenseData({
+        ...expenseData,
+        taxAmount: calculatedTaxAmount.toFixed(2) + curr,
+      });
+    }
+  }, [expenseData.amount, expenseData.taxPercentage]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Prevent non-digit characters (except '.') from being entered
+    if (name === "amount" && !/^\d*\.?\d*$/.test(value)) {
+      return;
+    }
+
+    if (name === "taxPercentage" && value > 100) {
+      return;
+    }
+
+    if (
+      (name === "expenseName" ||
+        name === "category" ||
+        name === "receiverName") &&
+      /^\d+$/.test(value)
+    ) {
+      return;
+    }
+    
     setExpenseData({
       ...expenseData,
       [name]: value,
     });
+  };
+
+  const handleKeyPress = (e) => {
+    // Allow only digits and prevent 'e' character
+    if (!/^\d+$/.test(e.key)) {
+      e.preventDefault();
+    }
   };
 
   const handleDateChange = (date) => {
@@ -56,8 +95,6 @@ export default function CreateNewExpense() {
       date,
     });
   };
-
-
 
   const handleAddExpense = async (e) => {
     console.log("Clicked!!!!");
@@ -108,12 +145,11 @@ export default function CreateNewExpense() {
         });
       } else {
         console.error("Request failed with status: " + response.statusText);
-      } 
+      }
     } catch (error) {
       console.error("Error in Catch Block:", error);
     }
   };
-
 
   return (
     <div className={`create-new-expense ${isFormOpen ? "" : "hidden"}`}>
@@ -132,19 +168,25 @@ export default function CreateNewExpense() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="amount">Amount</label><br />
+            <label htmlFor="amount">Amount</label>
+            <br />
             <input
               type="number"
               id="amount"
               name="amount"
               value={expenseData.amount}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                // calculateTaxAmount(); // Calculate tax amount when amount changes
+              }}
+              onKeyPress={handleKeyPress}
               required
             />
           </div>
 
           <div className="input-group">
-            <label htmlFor="date">Date</label><br />
+            <label htmlFor="date">Date</label>
+            <br />
             <DatePicker
               selected={expenseData.date}
               onChange={handleDateChange}
@@ -154,7 +196,8 @@ export default function CreateNewExpense() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="category">Category</label><br />
+            <label htmlFor="category">Category</label>
+            <br />
             <input
               type="text"
               id="category"
@@ -166,7 +209,8 @@ export default function CreateNewExpense() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="currency">Currency</label><br />
+            <label htmlFor="currency">Currency</label>
+            <br />
             <select
               id="currency"
               name="currency"
@@ -190,12 +234,12 @@ export default function CreateNewExpense() {
               onChange={handleFileUpload}
             />
           </div>
-
         </div>
 
         <div className="column">
           <div className="input-group">
-            <label htmlFor="paymentMethod">Payment Method</label><br />
+            <label htmlFor="paymentMethod">Payment Method</label>
+            <br />
             <select
               id="paymentMethod"
               name="paymentMethod"
@@ -228,27 +272,26 @@ export default function CreateNewExpense() {
               id="taxPercentage"
               name="taxPercentage"
               value={expenseData.taxPercentage}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                // calculateTaxAmount(); // Calculate tax amount when tax percentage changes
+              }}
+              onKeyPress={handleKeyPress}
               required
             />
           </div>
 
-
           <div className="input-group">
-            <label htmlFor="taxAmount">Tax Amount</label><br />
-            <input
-              type="number"
-              id="taxAmount"
-              name="taxAmount"
-              value={expenseData.taxAmount}
-              onChange={handleChange}
-              required
-            />
+            <label htmlFor="taxAmount">Tax Amount</label>
+            <br />
+            <p id="taxAmount">
+              {expenseData.currency} {expenseData.taxAmount}
+            </p>
           </div>
 
-
           <div className="input-group">
-            <label htmlFor="notes">Notes</label><br />
+            <label htmlFor="notes">Notes</label>
+            <br />
             <TextareaAutosize
               id="notes"
               name="notes"
@@ -267,4 +310,3 @@ export default function CreateNewExpense() {
     </div>
   );
 }
-
