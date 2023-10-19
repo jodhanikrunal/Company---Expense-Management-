@@ -52,6 +52,13 @@ export default function CreateNewProject() {
     setBudget(e.target.value);
   };
 
+  const handleKeyPress = (e) => {
+    // Allow only digits and prevent 'e' character
+    if (!/^\d+$/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+
   const handleAddProject = (event) => {
     event.preventDefault();
   
@@ -193,10 +200,11 @@ export default function CreateNewProject() {
               />
               <div className="text-wrapper-8">Budget (Maximum)*</div>
               <input
-                type="text"
+                type="number"
                 className="rectangle-4"
                 value={budget}
                 onChange={handleBudgetChange}
+                onKeyPress={handleKeyPress}
               />
               <div className="addmember">
                 <div className="text-wrapper-9">Team members*</div>
