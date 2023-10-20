@@ -1,0 +1,47 @@
+/* DeleteProject.css */
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-button-left {
+    width: 50%;
+    text-align: left;
+  }
+  
+  .modal-button-right {
+    width: 50%;
+    text-align: right;
+  }
+  
+  .delete-button {
+    background-color: #ff3333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .delete-button:hover {
+    background-color: #b8b8b8; 
+  }
+  
+  .testclose{
+    background-color: #2499e7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .testclose:hover {
+    background-color: #2980b9;
+  }
+  
+  

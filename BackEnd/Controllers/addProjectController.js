@@ -2,7 +2,6 @@ require("dotenv").config({ path: "../.env" });
 const Register = require("../Models/Register");
 const Project = require("../Models/Projects");
 const { ProjectValidator } = require("../Services/Validators/projectValidator");
-const sendMail = require("../Services/mailService");
 
 exports.addProject = async (req, res) => {
     try {
@@ -57,10 +56,9 @@ exports.addProject = async (req, res) => {
 
 exports.editProject = async (req, res) => {
     try {
-        const loggedInUserId = req.user._id; // Assuming you have authentication middleware
+        const loggedInUserId = req.user._id; 
         const projectId = req.params.projectId;
         
-        // Check if the project exists and belongs to the logged-in company
         const project = await Project.findOne({ _id: projectId, company: loggedInUserId });
 
         if (!project) {
@@ -75,7 +73,6 @@ exports.editProject = async (req, res) => {
             endDate, 
             projectManager, 
             progress, 
-            // status,
             projectMembers
         } = req.body;
 
@@ -87,7 +84,6 @@ exports.editProject = async (req, res) => {
         project.endDate = endDate;
         project.projectManager = projectManager;
         project.progress = progress;
-        // project.status = status;
         project.projectMembers = projectMembers;
 
         const updatedProject = await project.save();
@@ -104,7 +100,7 @@ exports.editProject = async (req, res) => {
 
 exports.removeProject = async (req, res) => {
     try {
-        const loggedInUserId = req.user._id; // Assuming you have authentication middleware
+        const loggedInUserId = req.user._id;
         const projectId = req.params.projectId;
 
         // Check if the project exists and belongs to the logged-in company
@@ -114,7 +110,6 @@ exports.removeProject = async (req, res) => {
             return res.status(404).json({ message: "Project not found." });
         }
 
-        // Perform project removal logic
         await Project.findByIdAndRemove(projectId);
 
         return res.status(200).json({ message: "Project removed successfully" });

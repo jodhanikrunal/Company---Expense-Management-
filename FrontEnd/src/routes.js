@@ -18,7 +18,7 @@ import {
   MdPerson,
   MdLock,
 } from "react-icons/md";
-import Expense from "views/admin/default/components/Expense";
+import Expense from "views/admin/default/components/AllExpense/Expense";
 import CheckTable from "views/admin/default/components/CheckTable";
 
 const routes = [

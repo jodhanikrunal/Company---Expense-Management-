@@ -147,8 +147,8 @@ import { Link } from "react-router-dom";
 // import CardMenu from "components/card/CardMenu";
 import Card from "components/card";
 import Modal from "react-modal";
-import EditProject from './EditProject';
-import DeleteProject from './DeleteProject';
+import EditProject from './EditProject/EditProject';
+import DeleteProject from './DeleteProject/DeleteProject';
 import {
   useGlobalFilter,
   usePagination,
@@ -193,10 +193,12 @@ export default function CheckTable() {
       .then((data) => {
         if (Array.isArray(data)) {
           // If 'data' is an array, set it directly
-          setTableData(data);
+          // setTableData(data);
+          setTableData(data.slice(-4));
         } else if (data && Array.isArray(data.projects)) {
           // If 'data' contains an array under a key like 'projects', use that
-          setTableData(data.projects);
+          // setTableData(data.projects);
+          setTableData(data.projects.slice(-4));
         } else {
           console.error("Data format is not as expected:", data);
         }

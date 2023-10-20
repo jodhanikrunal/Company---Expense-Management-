@@ -5,7 +5,7 @@ import RtlLayout from "layouts/rtl";
 import AdminLayout from "layouts/admin";
 import AuthLayout from "layouts/auth";
 import { ToastContainer } from "react-toastify";
-import Expense from "views/admin/default/components/Expense";
+import Expense from "views/admin/default/components/AllExpense/Expense";
 import SignUpPage from "views/auth/SignUpPage";
 import LoginPage from "views/auth/LoginPage";
 import HomePage from "layouts/admin/HomePage";

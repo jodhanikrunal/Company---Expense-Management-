@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import "./Addproject.css";
+import "./EditProject.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "font-awesome/css/font-awesome.min.css";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import axios from "axios";
-// import { Height } from "@mui/icons-material";
-// import Box from '@mui/material/Box';
-// import TextField from '@mui/material/TextField';
+
 
 export default function EditProject({ project }) {
 
@@ -25,6 +22,7 @@ export default function EditProject({ project }) {
   const [teamMembers, setTeamMembers] = useState(
     project.projectMembers.map((member) => member.employeeName)
   );
+  
 
   const handleStartDateChange = (date) => {
     setStartDate(date);

@@ -1,7 +1,5 @@
 const express = require('express');
 const Expense = require('../Models/Expense');
-const Project = require('../Models/Projects');
-const Register = require('../Models/Register');
 
 exports.getexpense = async(req,res) => {
     try {
@@ -14,8 +12,6 @@ exports.getexpense = async(req,res) => {
         const expenses = await Expense.find({
           project:projectId,
         }); 
-
-        console.log(req.user);    
 
         res.status(200).json(expenses);
       } catch (error) {

@@ -6,8 +6,8 @@ const authMiddleware = require('../Middlewares/AuthMiddleware');
 const ExpenseRoute = (app) => {
   app.post("/addExpense", fileUploaderMiddleware, addExpense);
   app.get("/getexpense/:projectId", getexpense);
+  app.put("/editExpense/:expenseId",fileUploaderMiddleware, editExpense);
   app.delete("/removeExpense/:expenseId", removeExpense);
-  app.put("/editExpense/:expenseId", editExpense);
 };
 
 module.exports = ExpenseRoute;

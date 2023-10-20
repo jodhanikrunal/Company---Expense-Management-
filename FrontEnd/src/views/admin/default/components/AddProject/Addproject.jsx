@@ -90,8 +90,8 @@ export default function CreateNewProject() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Response from the server:', data);
-        toast.success("Expense Added Successfully", {
+        // console.log('Response from the server:', data);
+        toast.success("Project Added Successfully", {
           position: toast.CENTER,
           autoClose: 2000,
           onClose: () => {

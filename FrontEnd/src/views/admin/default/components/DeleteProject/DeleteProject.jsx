@@ -121,7 +121,7 @@
 import React from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./DeleteProject.css"; // Import your CSS for styling
+import "./DeleteProject.css"; 
 
 export default function DeleteProject({ project, onClose }) {
 

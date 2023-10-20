@@ -220,10 +220,12 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import Card from "components/card";
 import Widget from "components/widget/Widget";
 import Navbar from "components/navbar";
-import routes from "routes.js";
+// import routes from "routes.js";
 import { MdBarChart, MdDashboard } from "react-icons/md";
-import CreateNewExpense from "./CreateNewExpense.jsx";
-import axios from 'axios';
+import CreateNewExpense from "../AddExpense/CreateNewExpense";
+import EditExpense from '../EditExpense/EditExpense';
+import DeleteExpense from '../DeleteExpense/DeleteExpense';
+
 
 import {
   useGlobalFilter,
@@ -232,7 +234,7 @@ import {
   useTable,
 } from "react-table";
 
-export default function Expense(props) {
+export default function Expense() {
   // const { columnsData } = props;
 
   const { id } = useParams();
@@ -242,27 +244,55 @@ export default function Expense(props) {
   // const columns = useMemo(() => columnsData, [columnsData]);
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(true);
-  const [currentRoute, setCurrentRoute] = useState("Main Dashboard");
+  const [currentRoute, setCurrentRoute] = useState("Main");
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedExpense, setSelectedExpense] = useState(null);
 
   const location = useLocation();
+
+  const openEditModal = (expense) => {
+    setSelectedExpense(expense);
+    setIsEditModalOpen(true);
+  };
+
+  
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    // setSelectedExpense(null);
+  };
+  
+  const openDeleteModal = (expense) => {
+    setSelectedExpense(expense);
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    // setSelectedExpense(null);
+    setIsDeleteModalOpen(false);
+  };
 
   const columns = useMemo(() => [
     // Define your columns here
     {
-      Header: "Expense Name",
-      accessor: "expenseName",    
+      Header: "Edit",
+      accessor: "editIcon",
       Cell: ({ row }) => (
         <Link
-          to={`/project/${(row.original._id)}`}
+          to={`/project/${id}`}
           className="text-sm font-bold text-navy-700 dark:text-white"
+          onClick={() => openEditModal(row.original)}
         >
-          {row.original.expenseName}
+          <i className="fa fa-edit"></i>
         </Link>
       ),
+    },
+    {
+      Header: "Expense Name",
+      accessor: "expenseName",    
     },
     {
       Header: "Reciever Name",
@@ -285,15 +315,28 @@ export default function Expense(props) {
         return formattedDate;
       },
     },
+    {
+      Header: "Delete",
+      accessor: "deleteIcon",
+      Cell: ({ row }) => (
+        <Link
+          to={`/project/${id}`}
+          className="text-sm font-bold text-navy-700 dark:text-white"
+          onClick={() => openDeleteModal(row.original)}
+        >
+          <i className="fa fa-trash"></i>
+        </Link>
+      ),
+    },
   ], []);
 
   useEffect(() => {
-    fetchData(); // Fetch data when the component mounts
-    getActiveRoute(routes);
+    fetchProjectName(id);
+    fetchData(); 
+    // getActiveRoute(routes);
   }, [location.pathname]);
 
   const fetchData = () => {
-    // Fetch data from your API endpoint
     fetch(`http://localhost:4000/getexpense/${id}`)
       .then((response) => {
         if (!response.ok) {
@@ -304,24 +347,45 @@ export default function Expense(props) {
       .then((data) => {
         setData(data);
         setLoading(false);
+
+        if (data && data.projectName) {
+          setCurrentRoute(data.projectName);
+        }
+
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
   };
+
+  const fetchProjectName = (id) => {
+    fetch(`http://localhost:4000/getprojectName/${id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setCurrentRoute(data.projectTitle);
+      })
+      .catch((error) => {
+        console.error("Error fetching project name:", error);
+      });
+  };
   
   
 
-  const getActiveRoute = (routes) => {
-    let activeRoute = "Main Dashboard";
-    for (let i = 0; i < routes.length; i++) {
-      if (window.location.href.indexOf(routes[i].layout + "/" + routes[i].path) !== -1) {
-        setCurrentRoute(routes[i].name);
-      }
-    }
-    return activeRoute;
-  };
+  // const getActiveRoute = (routes) => {
+  //   let activeRoute = "Main Dashboard";
+  //   for (let i = 0; i < routes.length; i++) {
+  //     if (window.location.href.indexOf(routes[i].layout + "/" + routes[i].path) !== -1) {
+  //       setCurrentRoute(routes[i].name);
+  //     }
+  //   }
+  //   return activeRoute;
+  // };
 
   const openModal = () => {
     setIsOpen(true);
@@ -441,6 +505,37 @@ export default function Expense(props) {
           </table>
         </div>
       </Card>
+      <Modal
+        isOpen={isEditModalOpen}
+        onRequestClose={closeEditModal}
+        contentLabel="Edit Expense Modal"
+        className="custom-modal"
+        overlayClassName="custom-modal-overlay"
+      >
+        <div className="modal-content">
+          <EditExpense
+            expense={selectedExpense}
+          />
+          <button className="close-button" onClick={closeEditModal}>
+            Close
+          </button>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onRequestClose={closeDeleteModal}
+        contentLabel="Delete Expense Modal"
+        className="custom-modal"
+        overlayClassName="custom-modal-overlay"
+      >
+        <div className="modal-content">
+          <DeleteExpense
+            expense={selectedExpense}
+            onClose={closeDeleteModal}
+          />
+        </div>
+      </Modal>
     </>
   );
 }

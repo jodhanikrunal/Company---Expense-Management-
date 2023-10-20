@@ -50,15 +50,14 @@ export default function CreateNewExpense() {
       const calculatedTaxAmount = (amount * taxPercentage) / 100;
       setExpenseData({
         ...expenseData,
-        taxAmount: calculatedTaxAmount.toFixed(2) + curr,
+        taxAmount: calculatedTaxAmount.toFixed(2) + " " + curr,
       });
     }
   }, [expenseData.amount, expenseData.taxPercentage]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Prevent non-digit characters (except '.') from being entered
+    
     if (name === "amount" && !/^\d*\.?\d*$/.test(value)) {
       return;
     }
@@ -97,8 +96,10 @@ export default function CreateNewExpense() {
   };
 
   const handleAddExpense = async (e) => {
-    console.log("Clicked!!!!");
+    // console.log("Clicked!!!!");
     e.preventDefault();
+
+    const taxAmountWithoutCurrency = parseFloat(expenseData.taxAmount);
 
     const data = {
       project: id,
@@ -112,7 +113,9 @@ export default function CreateNewExpense() {
       recieverName: expenseData.receiverName,
       taxPercentage: expenseData.taxPercentage,
       notes: expenseData.notes,
-      taxAmount: expenseData.taxAmount,
+      // taxAmount: expenseData.taxAmount,
+      taxAmount: taxAmountWithoutCurrency,
+
     };
 
     const formData = new FormData();
@@ -285,8 +288,10 @@ export default function CreateNewExpense() {
             <label htmlFor="taxAmount">Tax Amount</label>
             <br />
             <p id="taxAmount">
-              {expenseData.currency} {expenseData.taxAmount}
+            {/* {expenseData.taxAmount.toFixed(2)} {expenseData.currency} */}
+               {expenseData.taxAmount}
             </p>
+            {/* {expenseData.currency} */}
           </div>
 
           <div className="input-group">

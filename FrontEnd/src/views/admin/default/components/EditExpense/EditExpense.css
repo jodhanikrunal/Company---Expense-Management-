@@ -1,0 +1,128 @@
+/* ./CreateNewExpense.css */
+
+.edit-expense {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background-color: #f5f5f5;
+  }
+  
+  .expense-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 800px;
+    height: 82vh;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #currency,
+  #notes,
+  #paymentMethod {
+    border: 0.25px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  #currency:focus,
+  #notes:focus,
+  #paymentMethod:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px #007bff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  #documents {
+    border: 0.25px solid #ccc;
+    border-radius: 8px;
+    padding: 12px; /* Adjusted padding */
+    height: 50px; /* Increased height */
+    width: 100%;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  #documents:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px #007bff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-group {
+    margin: 10px 0;
+  }
+  
+  
+  
+  label {
+    font-weight: normal;
+    font-size: 18px;
+    color: #000000;
+  }
+  
+  /* Use a pseudo-element to style the labels without affecting layout */
+  .input-group::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 4px;
+    color: #000000;
+    font-size: 18px;
+  }
+  
+  input,
+  .react-datepicker__input-container input {
+    border: 0.25px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    height: 40px;
+    width: 100%;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 16px;
+  }
+  
+  input:focus,
+  .react-datepicker__input-container input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px #007bff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .edit-expense-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    /* height: 20px; */
+    width: 15%;
+    height: fit-content;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    text-align: center; /* Center the button text */
+    text-transform: uppercase; /* Uppercase text */
+  }
+  
+  .edit-expense-button:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  
+  
+  
