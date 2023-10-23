@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs'); 
 
-const directory = 'uploads/';
+const directory = 'uploads';
 
 if (!fs.existsSync(directory)) {
     fs.mkdirSync(directory, { recursive: true });
@@ -39,8 +39,8 @@ const fileUploaderMiddleware = (req, res, next) => {
         if (!req.file) {
             return res.status(400).json({ success: false, message: 'No file uploaded' });
         }
-
-        const fileUrl = `http://localhost:4000/${directory}/${req.file.filename}`;
+        const filename = req.file.filename;
+        const fileUrl = `http://localhost:4000/${directory}/${filename}`;
         req.fileUrl = fileUrl;
         next();
     });

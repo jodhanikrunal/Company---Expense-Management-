@@ -225,6 +225,10 @@ import { MdBarChart, MdDashboard } from "react-icons/md";
 import CreateNewExpense from "../AddExpense/CreateNewExpense";
 import EditExpense from '../EditExpense/EditExpense';
 import DeleteExpense from '../DeleteExpense/DeleteExpense';
+// import jsPDF from "jspdf";
+// import html2canvas from "html2canvas";
+import { PDFDocument, rgb } from 'pdf-lib';
+import { createCanvas, loadImage } from 'canvas';
 
 
 import {
@@ -328,12 +332,20 @@ export default function Expense() {
         </Link>
       ),
     },
+    {
+      Header: "Actions",
+      accessor: "actions",
+      Cell: ({ row }) => (
+        <div>
+          <button onClick={() => generatePDF(row.original)}>Download PDF</button>
+        </div>
+      ),
+    },
   ], []);
 
   useEffect(() => {
     fetchProjectName(id);
     fetchData(); 
-    // getActiveRoute(routes);
   }, [location.pathname]);
 
   const fetchData = () => {
@@ -375,18 +387,6 @@ export default function Expense() {
       });
   };
   
-  
-
-  // const getActiveRoute = (routes) => {
-  //   let activeRoute = "Main Dashboard";
-  //   for (let i = 0; i < routes.length; i++) {
-  //     if (window.location.href.indexOf(routes[i].layout + "/" + routes[i].path) !== -1) {
-  //       setCurrentRoute(routes[i].name);
-  //     }
-  //   }
-  //   return activeRoute;
-  // };
-
   const openModal = () => {
     setIsOpen(true);
   };
@@ -416,7 +416,142 @@ export default function Expense() {
 
   state.pageSize = 11;
 
- 
+  const generatePDF = async (expense) => {
+    if (expense && expense.expenseDocument) {
+      const pdfDoc = await PDFDocument.create();
+      const page = pdfDoc.addPage([600, 800]);
+      const { width, height } = page.getSize();
+      const pdfTitle = 'Expense Details';
+  
+      page.drawText(pdfTitle, {
+        x: 200,
+        y: height - 50,
+        size: 30,
+        color: rgb(0, 0, 0),
+      });
+  
+      // Add the additional fields
+      page.drawText(`Expense Name: ${expense.expenseName}`, {
+        x: 10,
+        y: height - 100,
+        size: 14,
+        color: rgb(0, 0, 0),
+      });
+  
+      page.drawText(`Receiver Name: ${expense.recieverName}`, {
+        x: 10,
+        y: height - 120,
+        size: 14,
+        color: rgb(0, 0, 0),
+      });
+  
+      page.drawText(`Expense Amount: ${expense.expenseAmount}`, {
+        x: 10,
+        y: height - 140,
+        size: 14,
+        color: rgb(0, 0, 0),
+      });
+  
+      page.drawText(`Expense Currency: ${expense.expenseCurrency}`, {
+        x: 10,
+        y: height - 160,
+        size: 14,
+        color: rgb(0, 0, 0),
+      });
+  
+      page.drawText(`Expense Date: ${expense.expenseDate}`, {
+        x: 10,
+        y: height - 180,
+        size: 14,
+        color: rgb(0, 0, 0),
+      });
+  
+      page.drawText(`Category: ${expense.expenseCategory}`, {
+        x: 10,
+        y: height - 200,
+        size: 14,
+        color: rgb(0, 0, 0),
+      });
+  
+      page.drawText(`Payment Method: ${expense.paymentMethod}`, {
+        x: 10,
+        y: height - 220,
+        size: 14,
+        color: rgb(0, 0, 0),
+      });
+  
+      page.drawText(`Tax Percentage: ${expense.taxPercentage}`, {
+        x: 10,
+        y: height - 240,
+        size: 14,
+        color: rgb(0, 0, 0),
+      });
+  
+      page.drawText(`Tax Amount: ${expense.taxAmount}`, {
+        x: 10,
+        y: height - 260,
+        size: 14,
+        color: rgb(0, 0, 0),
+      });
+  
+      page.drawText(`Notes: ${expense.notes}`, {
+        x: 10,
+        y: height - 280,
+        size: 14,
+        color: rgb(0, 0, 0),
+      });
+  
+      // Continue with adding expense documents as before
+  
+      // const links = expense.expenseDocument.split(',');
+  
+      // Define the y-coordinate for the first document image
+      // let y = height - 300;
+  
+      // for (const link of links) {
+      //   if (link.endsWith('.pdf')) {
+      //     // If it's a PDF, add it as a new page
+      //     const pdfBytes = await fetch(link).then((res) => res.arrayBuffer());
+      //     const externalPdf = await PDFDocument.load(pdfBytes);
+      //     const [externalPage] = await pdfDoc.copyPages(externalPdf, [0]);
+      //     pdfDoc.addPage(externalPage);
+      //   } else if (link.endsWith('.jpg') || link.endsWith('.jpeg')) {
+      //     // If it's a JPEG/JPG image, add it to the current page
+      //     const imageBytes = await fetch(link).then((res) => res.arrayBuffer());
+      //     const image = await pdfDoc.embedJpg(imageBytes);
+      //     page.drawImage(image, {
+      //       x: 50,
+      //       y: y - 100,
+      //       width: 500,
+      //       height: 300,
+      //     });
+      //   }
+      //   // Increase the y-coordinate to position the next document
+      //   y -= 300;
+      // }
+  
+      const pdfBytes = await pdfDoc.save();
+
+    // Create a blob from the PDF bytes
+    const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+    // Create a URL for the blob
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    // Create a download link
+    const a = document.createElement('a');
+    a.href = pdfUrl;
+    a.download = 'ExpenseDetails.pdf';
+    
+    // Simulate a click on the link to trigger the download
+    a.click();
+
+    // Clean up the URL and link
+    URL.revokeObjectURL(pdfUrl);
+    }
+  };
+  
+  
 
   if (loading) {
     return <p>Loading...</p>;
