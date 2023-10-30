@@ -43,7 +43,7 @@ export default function DeleteExpense({ expense, onClose }) {
 
   return (
     <div className="delete-project-modal">
-      <h2 className="maintext">Confirm Deletion</h2>
+      <h2 className="maintext">  Confirm Deletion </h2>
       <p>Are you sure you want to delete this Expense?</p>
       <div className="modal-buttons">
         <button type="button" onClick={handleDelete} className="delete-button">

@@ -50,9 +50,11 @@ export default function LoginPage() {
         },
         body: JSON.stringify({ email: businessEmail, password: password }),
       });
-
+      // const res = await response.json();
       if (response.status === 200) {
         const responseData = await response.json();
+        
+        localStorage.setItem('User',JSON.stringify(responseData.data));
         // console.log("Token from login : ",responseData.result);
         
         localStorage.setItem("jwtToken", responseData.result);

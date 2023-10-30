@@ -278,7 +278,11 @@ export default function EditExpense({ expense }) {
                         <p id="taxAmount">{expenseData.taxAmount}</p>
                     </div>
 
-                    <div className="input-group">
+                    <button type="submit" className="edit-expense-button">
+                    <b>Save</b>
+                </button>
+
+                    <div className="input-group-notes">
                         <label htmlFor="notes">Notes</label>
                         <br />
                         <TextareaAutosize
@@ -286,15 +290,16 @@ export default function EditExpense({ expense }) {
                             name="notes"
                             value={expenseData.notes}
                             onChange={handleChange}
-                            minRows={3}
+                            minRows={1.5}
                             maxRows={10}
                         />
                     </div>
+
+                   
+                    
                 </div>
 
-                <button type="submit" className="edit-expense-button">
-                    <b>Save</b>
-                </button>
+                
             </form>
         </div>
     );
