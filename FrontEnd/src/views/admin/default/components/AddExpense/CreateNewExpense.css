@@ -4,55 +4,41 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 84vh; /* Set to 100% viewport height */
   background-color: #f5f5f5;
 }
 
 .expense-form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr; /* Single column layout */
   gap: 20px;
   background-color: #fff;
   border-radius: 8px;
   padding: 20px;
-  max-width: 800px;
-  height: 82vh;
+  max-width: 100%; /* Adjusted to fit 100% width */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 70vh; /* Reduced form height */
 }
 
 #currency,
 #notes,
-#paymentMethod {
+#paymentMethod,
+#documents {
   border: 0.25px solid #ccc;
   border-radius: 8px;
-  padding: 10px;
+  padding: 10px; /* Reduced padding */
   width: 100%;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 #currency:focus,
 #notes:focus,
-#paymentMethod:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px #007bff;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-#documents {
-  border: 0.25px solid #ccc;
-  border-radius: 8px;
-  padding: 12px; /* Adjusted padding */
-  height: 50px; /* Increased height */
-  width: 100%;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
+#paymentMethod:focus,
 #documents:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px #007bff;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
-
 
 .column {
   display: flex;
@@ -63,15 +49,12 @@
   margin: 10px 0;
 }
 
-
-
 label {
   font-weight: normal;
   font-size: 18px;
   color: #000000;
 }
 
-/* Use a pseudo-element to style the labels without affecting layout */
 .input-group::before {
   content: attr(data-label);
   display: block;
@@ -84,8 +67,8 @@ input,
 .react-datepicker__input-container input {
   border: 0.25px solid #ccc;
   border-radius: 8px;
-  padding: 12px;
-  height: 40px;
+  padding: 10px; /* Reduced padding */
+  height: 30px; /* Reduced height */
   width: 100%;
   transition: border-color 0.3s, box-shadow 0.3s;
   font-size: 16px;
@@ -105,9 +88,8 @@ input:focus,
   border-radius: 8px;
   padding: 10px;
   cursor: pointer;
-  /* height: 20px; */
-  width: 50%;
-  height: fit-content;
+  width: 100%; /* Fit to 100% width */
+  height: auto; /* Adjusted to fit content */
   font-size: 18px;
   transition: background-color 0.3s ease;
   text-align: center; /* Center the button text */
@@ -122,6 +104,3 @@ input:focus,
 .hidden {
   display: none;
 }
-
-
-

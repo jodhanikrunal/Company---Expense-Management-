@@ -22,28 +22,28 @@ const General = () => {
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Education</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Stanford University
+            CHARUSAT University
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Languages</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            English, Spanish, Italian
+            English
           </p>
         </div>
 
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Department</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Product Design
+            Computer Engineering
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Work History</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            English, Spanish, Italian
+            English
           </p>
         </div>
 

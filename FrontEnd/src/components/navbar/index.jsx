@@ -183,18 +183,21 @@ const Navbar = (props) => {
               src={avatar}
               alt="Elon Musk"
             />
+            // {firstLetter}
           }
           children={
             <div className="flex w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
               <div className="p-4">
-                <div className="flex items-center gap-2">
-                  <p className="text-sm font-bold text-navy-700 dark:text-white">
-                    👋 Hey, Fachara
-                  </p>{" "}
-                </div>
+                <button
+                  onClick={() => {
+                    localStorage.clear();
+                    window.location.href = '/signup';
+                  }}
+                  className="text-sm font-bold text-red-500 hover:text-red-600 cursor-pointer"
+                >
+                  Log Out
+                </button>
               </div>
-              <div className="h-px w-full bg-gray-200 dark:bg-white/20 " />
-
               {/* <div className="flex flex-col p-4">
                 <a
                   href=" "

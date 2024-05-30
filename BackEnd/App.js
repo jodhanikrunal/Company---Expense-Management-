@@ -22,6 +22,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true }));
 app.use(express.json());
 
+
 app.use(logger("dev"));
 
 require("./Routes/AuthRoutes.js")(app);

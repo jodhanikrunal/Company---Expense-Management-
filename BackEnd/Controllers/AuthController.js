@@ -102,14 +102,17 @@ exports.authLogin = async (req, res) => {
     };
 
     const authToken = genToken(payload);
-
-    res.status(200).send({
+    // console.log(user);
+    res.status(200).json({
       success: true,
       result: authToken,
       _id: user._id,
       email: user.email,
       type: "user",
+      data:user
     });
+   
+    
   } catch (err) {
     console.error(err);
     res.status(500).send({
