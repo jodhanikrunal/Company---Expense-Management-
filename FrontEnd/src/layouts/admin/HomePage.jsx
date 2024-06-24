@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import "./homePage.css";
 
 export default function HomePage() {
   useEffect(() => {
@@ -66,37 +67,40 @@ export default function HomePage() {
         </div>
       </header> */}
       <header className="main-header position-fixed w-100">
-        <div className="container">
-          <nav className="navbar navbar-expand-xl py-0">
-            <div className="logo" data-aos="fade-down" data-aos-duration="800">
-              <a className="navbar-brand py-0 me-0" href="#">
-                <img src="./Images/Outlay_logo.svg" alt="Error" />
-              </a>
-            </div>
-            <a
-              className="d-inline-block d-lg-block d-xl-none d-xxl-none nav-toggler text-decoration-none"
-              data-aos="fade-left" data-aos-duration="800"
-              data-bs-toggle="offcanvas"
-              href="#offcanvasExample"
-              aria-controls="offcanvasExample"
-            >
-              <i className="ti ti-menu-2 text-warning" />
+      <div className="container">
+        <nav className="navbar navbar-expand-xl py-0">
+          <div className="logo" data-aos="fade-down" data-aos-duration="800">
+            <a className="navbar-brand py-0 me-0" href="#">
+              <img src="./Images/Outlay_logo.svg" alt="Error" />
             </a>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav me-auto">
-              </ul>
-              <Link
-                className="btn btn-warning btn-hover-secondery text-capitalize"
-                to="/signup"
-                data-aos="fade-up" data-aos-duration="800"
-              >
-                Register
-              </Link>
-            </div>
-          </nav>
-        </div>
-      </header>
-
+          </div>
+          <a
+            className="d-inline-block d-lg-block d-xl-none d-xxl-none nav-toggler text-decoration-none"
+            data-aos="fade-left"
+            data-aos-duration="800"
+            data-bs-toggle="offcanvas"
+            href="#offcanvasExample"
+            aria-controls="offcanvasExample"
+          >
+            <i className="ti ti-menu-2 text-warning" />
+          </a>
+          <div
+            className="collapse navbar-collapse"
+            id="navbarSupportedContent"
+          >
+            <ul className="navbar-nav me-auto"></ul>
+            <Link
+              className="btn btn-warning btn-hover-secondery text-capitalize"
+              to="/signup"
+              data-aos="fade-up"
+              data-aos-duration="800"
+            >
+              Register
+            </Link>
+          </div>
+        </nav>
+      </div>
+    </header>
       {/*--------------------------*/}
       {/* Header End  */}
       {/*--------------------------*/}
@@ -138,14 +142,19 @@ export default function HomePage() {
 
       <section className="hero-banner position-relative overflow-hidden">
         <div className="container">
-          <div className="row d-flex flex-wrap align-items-center">
+          <div className="row d-flex align-items-center flex-wrap">
             <div
               className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
               data-aos="fade-right" // Apply fade-right animation
               data-aos-duration="800" // Set animation duration
             >
-              <div className="position-relative left-hero-color" style={{ marginTop: "-40%" }}>
-                <h1 className="mb-0 fw-bold">Empower Your Finances with Outlay</h1>
+              <div
+                className="position-relative left-hero-color"
+                style={{ marginTop: "-40%" }}
+              >
+                <h1 className="fw-bold mb-0">
+                  Empower Your Finances with Outlay
+                </h1>
                 <p>Your Smart Expense Management Solution</p>
                 <a href="#" className="btn btn-warning btn-hover-secondery">
                   <span className="d-inline-block me-1" /> Discover More
@@ -157,8 +166,15 @@ export default function HomePage() {
               data-aos="fade-left" // Apply fade-left animation
               data-aos-duration="800" // Set animation duration
             >
-              <div className="position-relative right-hero-color " style={{ marginTop: "-25%" }}>
-                <img src="./Images/right-image.svg" className="img-fluid" alt="Error" />
+              <div
+                className="position-relative right-hero-color "
+                style={{ marginTop: "-25%" }}
+              >
+                <img
+                  src="./Images/right-image.svg"
+                  className="img-fluid"
+                  alt="Error"
+                />
               </div>
             </div>
           </div>
@@ -243,8 +259,11 @@ export default function HomePage() {
       </section> */}
 
       <section className="service position-relative overflow-hidden">
-        <div className="container position-relative">
-          <img src="./Images/dot-shape.png" className="shape position-absolute" />
+        <div className="position-relative container">
+          <img
+            src="./Images/dot-shape.png"
+            className="shape position-absolute"
+          />
           <div className="row">
             <div className="col-12">
               <small className="fs-7 d-block">Working Process</small>
@@ -269,7 +288,7 @@ export default function HomePage() {
               </a>
             </div>
           </div>
-          <div className="row d-flex flex-wrap justify-content-center step-row">
+          <div className="row d-flex justify-content-center step-row flex-wrap">
             {/* <div
             className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 text-center"
             data-aos="fade-up"
@@ -296,15 +315,20 @@ export default function HomePage() {
               data-aos-duration="800"
               data-aos-delay="400"
             >
-              <a href="/signup" style={{ textDecoration: "none", color: "black" }}> {/* Add the anchor tag */}
+              <a
+                href="/signup"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                {" "}
+                {/* Add the anchor tag */}
                 <div className="card border-0 shadow">
                   <div className="card-body">
-                    <div className="icon-round overflow-hidden rounded-circle position-relative d-flex align-items-center justify-content-center mx-auto text-center">
+                    <div className="icon-round rounded-circle position-relative d-flex align-items-center justify-content-center mx-auto overflow-hidden text-center">
                       <i className="ti ti-download text-primary position-relative" />
                     </div>
-                    <h5 className="mb-0 fw-500">Step 1</h5>
+                    <h5 className="fw-500 mb-0">Step 1</h5>
                     <h3 className="fs-4">Create a Free Account</h3>
-                    <p className="fs-7 mb-0 fw-500">
+                    <p className="fs-7 fw-500 mb-0">
                       Sign up and create your free account.
                     </p>
                   </div>
@@ -318,19 +342,24 @@ export default function HomePage() {
               data-aos-duration="800"
               data-aos-delay="600"
             >
-              <a href="/login" style={{ textDecoration: "none", color: "black" }}> {/* Add the anchor tag */}
-              <div className="card border-0 shadow">
-                <div className="card-body">
-                  <div className="icon-round overflow-hidden rounded-circle position-relative d-flex align-items-center justify-content-center mx-auto text-center">
-                    <i className="ti ti-user text-primary position-relative" />
+              <a
+                href="/login"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                {" "}
+                {/* Add the anchor tag */}
+                <div className="card border-0 shadow">
+                  <div className="card-body">
+                    <div className="icon-round rounded-circle position-relative d-flex align-items-center justify-content-center mx-auto overflow-hidden text-center">
+                      <i className="ti ti-user text-primary position-relative" />
+                    </div>
+                    <h5 className="fw-500 mb-0">Step 2</h5>
+                    <h3 className="fs-4">Start with Your Free Trial</h3>
+                    <p className="fs-7 fw-500 mb-0">
+                      Begin your journey with our free trial period.
+                    </p>
                   </div>
-                  <h5 className="mb-0 fw-500">Step 2</h5>
-                  <h3 className="fs-4">Start with Your Free Trial</h3>
-                  <p className="fs-7 mb-0 fw-500">
-                    Begin your journey with our free trial period.
-                  </p>
                 </div>
-              </div>
               </a>
             </div>
             <div
@@ -341,12 +370,12 @@ export default function HomePage() {
             >
               <div className="card border-0 shadow">
                 <div className="card-body">
-                  <div className="icon-round overflow-hidden rounded-circle position-relative d-flex align-items-center justify-content-center mx-auto text-center">
+                  <div className="icon-round rounded-circle position-relative d-flex align-items-center justify-content-center mx-auto overflow-hidden text-center">
                     <i className="ti ti-gift text-primary position-relative" />
                   </div>
-                  <h5 className="mb-0 fw-500">Step 3</h5>
+                  <h5 className="fw-500 mb-0">Step 3</h5>
                   <h3 className="fs-4">Start Your Journey</h3>
-                  <p className="fs-7 mb-0 fw-500">
+                  <p className="fs-7 fw-500 mb-0">
                     Embark on your financial journey with Outlay.
                   </p>
                 </div>
@@ -373,19 +402,19 @@ export default function HomePage() {
               <h2 className="fs-2 text-black mb-0">
                 Our Featured Service that We Provide
               </h2>
-              <p className="mb-0 fw-500 fs-7">
+              <p className="fw-500 fs-7 mb-0">
                 An Expense Management System is designed to simplify and
                 automate the process of tracking, recording, and analyzing
                 expenditures.
               </p>
               <ul className="list-unstyled mb-0 pl-0">
-                <li className="d-flex flex-wrap align-items-start">
+                <li className="d-flex align-items-start flex-wrap">
                   <i className="ti ti-circle-check fs-4 pe-2" />
                   <span className="fs-7 text-black">
                     List of the tasks that require your attention.
                   </span>
                 </li>
-                <li className="d-flex flex-wrap align-items-start">
+                <li className="d-flex align-items-start flex-wrap">
                   <i className="ti ti-circle-check fs-4 pe-2" />
                   <span className="fs-7 text-black">
                     Google Calendar integration to see when interruptions will
@@ -404,13 +433,13 @@ export default function HomePage() {
       {/* Portfolio section Start--*/}
       {/*--------------------------*/}
       <section className="portfolio position-relative bg-primary">
-        <div className="container position-relative">
+        <div className="position-relative container">
           <div className="row">
             <div className="col-12">
               <small className="fs-7 d-block text-warning">Our Services</small>
             </div>
             <div className="col-12 d-xxl-flex d-xl-flex d-lg-flex d-md-flex d-sm-block d-block align-items-center justify-content-xxl-between justify-content-xl-between justify-content-lg-between justify-content-md-between justify-content-sm-between justify-content-sm-center ">
-              <h2 className="fs-3 text-white mb-0">What we Provides ?</h2>
+              <h2 className="fs-3 mb-0 text-white">What we Provides ?</h2>
               <a
                 href="#"
                 className="btn btn-warning btn-hover-secondery section-btn"
@@ -419,15 +448,15 @@ export default function HomePage() {
               </a>
             </div>
           </div>
-          <div className="row d-flex flex-wrap justify-content-center step-row">
+          <div className="row d-flex justify-content-center step-row flex-wrap">
             <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 text-center">
               <div className="card bg-transparent">
                 <div className="card-body">
-                  <div className="icon mx-auto rounded-circle d-flex justify-content-center align-items-center">
+                  <div className="icon rounded-circle d-flex justify-content-center align-items-center mx-auto">
                     <i className="ti ti-brand-github text-white" />
                   </div>
                   <h3 className="fs-4 text-white">Github Sync</h3>
-                  <p className="fs-7 mb-0 fw-500">
+                  <p className="fs-7 fw-500 mb-0">
                     Contrary to popular belief, Lorem Ipsum is not simply random
                     text.
                   </p>
@@ -437,11 +466,11 @@ export default function HomePage() {
             <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 text-center">
               <div className="card bg-transparent">
                 <div className="card-body">
-                  <div className="icon  mx-auto rounded-circle d-flex justify-content-center align-items-center">
+                  <div className="icon  rounded-circle d-flex justify-content-center align-items-center mx-auto">
                     <i className="ti ti-crown text-white" />
                   </div>
                   <h3 className="fs-4 text-white">Branding</h3>
-                  <p className="fs-7 mb-0 fw-500">
+                  <p className="fs-7 fw-500 mb-0">
                     Contrary to popular belief, Lorem Ipsum is not simply random
                     text.
                   </p>
@@ -451,11 +480,11 @@ export default function HomePage() {
             <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 text-center">
               <div className="card bg-transparent">
                 <div className="card-body">
-                  <div className="icon mx-auto rounded-circle d-flex justify-content-center align-items-center">
+                  <div className="icon rounded-circle d-flex justify-content-center align-items-center mx-auto">
                     <i className="ti ti-message-circle-2 text-white" />
                   </div>
                   <h3 className="fs-4 text-white">Comments</h3>
-                  <p className="fs-7 mb-0 fw-500">
+                  <p className="fs-7 fw-500 mb-0">
                     Contrary to popular belief, Lorem Ipsum is not simply random
                     text.
                   </p>
@@ -464,7 +493,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="container position-relative">
+        <div className="position-relative container">
           <div className="portfolio-wrap">
             <div className="owl-carousel owl-theme portfolio-slider">
               <div className="item">
@@ -503,18 +532,18 @@ export default function HomePage() {
       {/* Pricing section Start----*/}
       {/*--------------------------*/}
       <section className="pricing position-relative overflow-hidden">
-        <div className="container position-relative">
+        <div className="position-relative container">
           <div className="row justify-content-center">
             <div className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
               <small className="fs-7 d-block">Pricing Plan</small>
-              <h2 className="fs-3 pricing-head text-black mb-0 position-relative">
+              <h2 className="fs-3 pricing-head text-black position-relative mb-0">
                 What’s About Our Pricing Subscription
               </h2>
             </div>
           </div>
           <div className="row plans">
             <div className="col-12 text-center">
-              <div className="form-check form-switch d-flex justify-content-center ps-0 align-items-center">
+              <div className="form-check form-switch d-flex justify-content-center align-items-center ps-0">
                 <label
                   className="form-check-label text-black fs-7"
                   htmlFor="flexSwitchCheckChecked"
@@ -541,17 +570,17 @@ export default function HomePage() {
           </div>
           <div className="row justify-content-center price-plan">
             <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-              <div className="card position-relative shadow border-0 h-100">
+              <div className="card position-relative h-100 border-0 shadow">
                 <div className="card-body pb-4">
                   <small className="fs-7 d-block text-warning text-center">
                     Personal
                   </small>
-                  <h2 className="mb-4 text-center position-relative">
+                  <h2 className="position-relative mb-4 text-center">
                     <sub className="fs-2 text-black">0</sub>
                     <sup className="fs-6 position-absolute">$</sup>
                   </h2>
                   <small className="fs-7 d-block text-center">Free</small>
-                  <p className="fs-7 text-center fw-500">
+                  <p className="fs-7 fw-500 text-center">
                     For individuals looking for a simple CRM solution
                   </p>
                   <ul className="list-unstyled mb-0 pl-0">
@@ -573,7 +602,7 @@ export default function HomePage() {
                     </li>
                   </ul>
                 </div>
-                <div className="card-action text-center pb-xxl-5 pb-xl-5 pb-lg-5 pb-md-4 pb-sm-4 pb-4">
+                <div className="card-action pb-xxl-5 pb-xl-5 pb-lg-5 pb-md-4 pb-sm-4 pb-4 text-center">
                   <a
                     href="#"
                     className="btn btn-warning btn-hover-secondery text-capitalize"
@@ -584,7 +613,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-              <div className="card position-relative shadow border-0 h-100">
+              <div className="card position-relative h-100 border-0 shadow">
                 <div className="position-absolute badge bg-warning d-inline-block mx-auto">
                   Most Popular
                 </div>
@@ -592,12 +621,12 @@ export default function HomePage() {
                   <small className="fs-7 d-block text-warning text-center">
                     Professional
                   </small>
-                  <h2 className="mb-4 text-center position-relative">
+                  <h2 className="position-relative mb-4 text-center">
                     <sub className="fs-2 text-black">49</sub>
                     <sup className="fs-6 position-absolute">$</sup>
                   </h2>
                   <small className="fs-7 d-block text-center">Free</small>
-                  <p className="fs-7 text-center fw-500">
+                  <p className="fs-7 fw-500 text-center">
                     For individuals looking for a simple CRM solution
                   </p>
                   <ul className="list-unstyled mb-0 pl-0">
@@ -625,7 +654,7 @@ export default function HomePage() {
                     </li>
                   </ul>
                 </div>
-                <div className="card-action text-center pb-xxl-5 pb-xl-5 pb-lg-5 pb-md-4 pb-sm-4 pb-4">
+                <div className="card-action pb-xxl-5 pb-xl-5 pb-lg-5 pb-md-4 pb-sm-4 pb-4 text-center">
                   <a
                     href="#"
                     className="btn btn-warning btn-hover-secondery text-capitalize"
@@ -636,17 +665,17 @@ export default function HomePage() {
               </div>
             </div>
             <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-              <div className="card position-relative shadow border-0 h-100">
+              <div className="card position-relative h-100 border-0 shadow">
                 <div className="card-body pb-4">
                   <small className="fs-7 d-block text-warning text-center">
                     Enterprise
                   </small>
-                  <h2 className="mb-4 text-center position-relative">
+                  <h2 className="position-relative mb-4 text-center">
                     <sub className="fs-2 text-black">99</sub>
                     <sup className="fs-6 position-absolute">$</sup>
                   </h2>
                   <small className="fs-7 d-block text-center">Free</small>
-                  <p className="fs-7 text-center fw-500">
+                  <p className="fs-7 fw-500 text-center">
                     For individuals looking for a simple CRM solution
                   </p>
                   <ul className="list-unstyled mb-0 pl-0">
@@ -678,7 +707,7 @@ export default function HomePage() {
                     </li>
                   </ul>
                 </div>
-                <div className="card-action text-center pb-xxl-5 pb-xl-5 pb-lg-5 pb-md-4 pb-sm-4 pb-4">
+                <div className="card-action pb-xxl-5 pb-xl-5 pb-lg-5 pb-md-4 pb-sm-4 pb-4 text-center">
                   <a
                     href="#"
                     className="btn btn-warning btn-hover-secondery text-capitalize"
@@ -698,7 +727,7 @@ export default function HomePage() {
       {/*---- FAQ section Start----*/}
       {/*--------------------------*/}
       <section className="faq position-relative overflow-hidden">
-        <div className="container position-relative">
+        <div className="position-relative container">
           <div className="row justify-content-center">
             <div className="col-12 text-center">
               <small className="fs-7 d-block">Frequently Asked Questions</small>
@@ -888,7 +917,7 @@ export default function HomePage() {
       {/*---Contact section Start--*/}
       {/*--------------------------*/}
       <section className="contact bg-primary position-relative overflow-hidden">
-        <div className="container position-relative">
+        <div className="position-relative container">
           <div className="dots-shape-left position-absolute">
             <img src="./Images/dot-shape.png" />
           </div>
@@ -898,7 +927,7 @@ export default function HomePage() {
           <div className="row">
             <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
               <small className="fs-7 d-block text-warning">Join us Now</small>
-              <h2 className="fs-3 text-white mb-0">
+              <h2 className="fs-3 mb-0 text-white">
                 Ready to try the product for free?
               </h2>
               <div className="owl-carousel owl-theme testimonial">
@@ -953,7 +982,7 @@ export default function HomePage() {
                 <div className="row ps-xxl-5 ps-xl-5 ps-lg-3 ps-md-0 ps-sm-0 ps-0">
                   <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <div className="form-group">
-                      <label className="form-label text-white fs-7 mb-3">
+                      <label className="form-label fs-7 mb-3 text-white">
                         Full Name
                       </label>
                       <input
@@ -965,7 +994,7 @@ export default function HomePage() {
                   </div>
                   <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <div className="form-group">
-                      <label className="form-label text-white fs-7 mb-3">
+                      <label className="form-label fs-7 mb-3 text-white">
                         User Name
                       </label>
                       <input
@@ -977,7 +1006,7 @@ export default function HomePage() {
                   </div>
                   <div className="col-12">
                     <div className="form-group">
-                      <label className="form-label text-white fs-7 mb-3">
+                      <label className="form-label fs-7 mb-3 text-white">
                         Email address
                       </label>
                       <input
@@ -989,7 +1018,7 @@ export default function HomePage() {
                   </div>
                   <div className="col-12">
                     <div className="form-group">
-                      <label className="form-label text-white fs-7 mb-3">
+                      <label className="form-label fs-7 mb-3 text-white">
                         Email Password
                       </label>
                       <input
@@ -1007,7 +1036,7 @@ export default function HomePage() {
                     </a>
                   </div>
                   <div className="col-12">
-                    <button className="btn btn-warning btn-hover-secondery text-capitalize mt-2 w-auto contact-btn">
+                    <button className="btn btn-warning btn-hover-secondery text-capitalize contact-btn mt-2 w-auto">
                       Try for Free
                     </button>
                   </div>
@@ -1019,46 +1048,46 @@ export default function HomePage() {
           <div className="trusted-companies">
             <div className="row justify-content-center">
               <div className="col-xx-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-                <h3 className="fs-7 mb-0 text-white text-center">
+                <h3 className="fs-7 mb-0 text-center text-white">
                   Trusted by Companies across the world
                 </h3>
-                <ul className="d-flex flex-wrap align-items-center list-unstyled mb-0 pl-0 owl-carousel owl-theme trusted-logos">
-                  <li className="text-center item">
+                <ul className="d-flex align-items-center list-unstyled owl-carousel owl-theme trusted-logos mb-0 flex-wrap pl-0">
+                  <li className="item text-center">
                     <a href="#">
                       <img src="./Images/google.svg" />
                     </a>
                   </li>
-                  <li className="text-center item">
+                  <li className="item text-center">
                     <a href="#">
                       <img src="./Images/microsoft.svg" />
                     </a>
                   </li>
-                  <li className="text-center item">
+                  <li className="item text-center">
                     <a href="#">
                       <img src="./Images/amazon.svg" />
                     </a>
                   </li>
-                  <li className="text-center item">
+                  <li className="item text-center">
                     <a href="#">
                       <img src="./Images/unique.svg" />
                     </a>
                   </li>
-                  <li className="text-center item">
+                  <li className="item text-center">
                     <a href="#">
                       <img src="./Images/google.svg" />
                     </a>
                   </li>
-                  <li className="text-center item">
+                  <li className="item text-center">
                     <a href="#">
                       <img src="./Images/microsoft.svg" />
                     </a>
                   </li>
-                  <li className="text-center item">
+                  <li className="item text-center">
                     <a href="#">
                       <img src="./Images/amazon.svg" />
                     </a>
                   </li>
-                  <li className="text-center item">
+                  <li className="item text-center">
                     <a href="#">
                       <img src="./Images/unique.svg" />
                     </a>
@@ -1083,11 +1112,11 @@ export default function HomePage() {
                 <a href="#">
                   <img src="./Images/Outlay_logo_W.svg" />
                 </a>
-                <p className="blue-light mb-0 fs-7 fw-500">
+                <p className="blue-light fs-7 fw-500 mb-0">
                   Empower Your Finances with Outlay: Where Efficiency Meets
                   Expense Management Excellence.
                 </p>
-                <div className="callus text-white fw-500 fs-7">
+                <div className="callus fw-500 fs-7 text-white">
                   Surat, Gujarat, India
                   <div className="blue-light">
                     Call us:{" "}
@@ -1160,7 +1189,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="copyrights text-center blue-light  fw-500">
+          <div className="copyrights blue-light fw-500  text-center">
             @<span id="autodate">2023</span> - All Rights Reserved by{" "}
             <a href="#" className="blue-light text-decoration-none">
               Outlay.live
@@ -1178,4 +1207,3 @@ export default function HomePage() {
     </div>
   );
 }
-
